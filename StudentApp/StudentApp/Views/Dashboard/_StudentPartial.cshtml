@@ -1,0 +1,458 @@
+﻿@using StudentApp.ViewModels
+@{
+    ViewBag.Title = "Profile";
+    Layout = null;
+}
+
+@model IList<Student>
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
+<head>
+    @Html.Partial("~/Views/Shared/_title_meta.cshtml")
+
+    <!-- swiper css -->
+    <link rel="stylesheet" href="~/assets/libs/swiper/swiper-bundle.min.css">
+
+    @Html.Partial("~/Views/Shared/_head_css.cshtml")
+</head>
+<body>
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        @Html.Partial("~/Views/Shared/_menu.cshtml")
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+
+
+                <h3>List of Student</h3>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">Add, Edit & Remove</h4>
+                            </div><!-- end card header -->
+
+                            <div class="card-body">
+                                <div id="customerList">
+                                    <div class="row g-4 mb-3">
+                                        <div class="col-sm-auto">
+                                            <div>
+                                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                                <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <div class="d-flex justify-content-sm-end">
+                                                <div class="search-box ms-2">
+                                                    <input type="text" class="form-control search" placeholder="Search...">
+                                                    <i class="ri-search-line search-icon"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive table-card mt-3 mb-1">
+                                        <table class="table align-middle table-nowrap">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col" style="width: 50px;">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                                        </div>
+                                                    </th>
+                                                    <th class="sort" data-sort="nom">Nom</th>
+                                                    <th class="sort" data-sort="prenom">Preom</th>
+                                                    <th class="sort" data-sort="cen">Cen</th>
+                                                    <th class="sort" data-sort="cin">Cin</th>
+                                                    <th class="sort" data-sort="tel">Tel</th>
+                                                    <th class="sort" data-sort="adresse">Adresse</th>
+                                                    <th class="sort" data-sort="email">Email</th>
+                                                    <th class="sort" data-sort="etat">Etat</th>
+                                                    <th class="sort" data-sort="cartier">Cartier</th>
+                                                    <th class="sort" data-sort="action">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="list form-check-all">
+                                                @foreach (var student in Model)
+                                                {
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                            </div>
+                                                        </th>
+                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">@student.IdStudent</a></td>
+                                                        <td class="nom">@student.Nom</td>
+                                                        <td class="prenom">@student.Prenom</td>
+                                                        <td class="cen">@student.Cen</td>
+                                                        <td class="cin">@student.Cin</td>
+                                                        <td class="tel">@student.Tel</td>
+                                                        <td class="adresse">@student.Adresse</td>
+                                                        <td class="email">@student.Email</td>
+                                                        <td class="etat">
+                                                            @if (student.Etat)
+                                                            {
+                                                                <span class="badge bg-success-subtle text-success text-uppercase">Active</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge bg-danger-subtle text-danger text-uppercase">Block</span>
+                                                            }
+                                                        </td>
+                                                        <td class="cartier">@student.CartierNavigation.Libelle</td>
+                                                        <td>
+                                                            <div class="d-flex gap-2">
+                                                                <div class="edit">
+                                                                    <button onclick="updateStudent(@student.IdStudent)" class="btn btn-sm btn-success edit-item-btn"
+                                                                            data-bs-toggle="modal" data-bs-target="#showModal">
+                                                                        Edit
+                                                                    </button>
+                                                                </div>
+                                                                <div class="remove">
+                                                                    <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                        <div class="noresult" style="display: none">
+                                            <div class="text-center">
+                                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                                           colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px">
+                                                </lord-icon>
+                                                <h5 class="mt-2">Sorry! No Result Found</h5>
+                                                <p class="text-muted mb-0">
+                                                    We've searched more than 150+ Orders We did not find any
+                                                    orders for you search.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end">
+                                        <div class="pagination-wrap hstack gap-2">
+                                            <a class="page-item pagination-prev disabled" href="#">
+                                                Previous
+                                            </a>
+                                            <ul class="pagination listjs-pagination mb-0"></ul>
+                                            <a class="page-item pagination-next" href="#">
+                                                Next
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end card -->
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+
+                <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-light p-3">
+                                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                        id="close-modal"></button>
+                            </div>
+
+                            <form id="StudentForm">
+
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <input for="IdStudent" type="hidden" id="id-field" class="form-control" placeholder="ID" readonly />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Nom" class="form-label">Nom</label>
+                                        <input for="Nom" type="text" id="Nom-field" class="form-control" placeholder="Enter votre nom" required />
+                                        <div class="invalid-feedback">Svp entrer votre nom.</div>
+                                        <span id="validationNom" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Prenom" class="form-label">Prenom</label>
+                                        <input for="Prenom" type="text" id="Prenom-field" class="form-control" placeholder="Enter votre prenom" required />
+                                        <div class="invalid-feedback">Svp entrer votre prenom.</div>
+                                        <span id="validationPrenom" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Cen" class="form-label">Cen</label>
+                                        <input for="Cen" type="text" id="Cen-field" class="form-control" placeholder="Enter votre cen" required />
+                                        <div class="invalid-feedback">Svp entrer votre cen.</div>
+                                        <span id="validationCen" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Cin" class="form-label">Cin</label>
+                                        <input for="Cin" type="text" id="Cin-field" class="form-control" placeholder="Enter votre cin" required />
+                                        <div class="invalid-feedback">Svp entrer votre cin.</div>
+                                        <span id="validationCin" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Tel" class="form-label">Tel</label>
+                                        <input for="Tel" type="text" id="Tel-field" class="form-control" placeholder="Enter votre tel" required />
+                                        <div class="invalid-feedback">Svp entrer votre tel.</div>
+                                        <span id="validationTel" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Adresse" class="form-label">Adresse</label>
+                                        <input for="Adresse" type="text" id="Adresse-field" class="form-control" placeholder="Enter votre adresse" required />
+                                        <div class="invalid-feedback">Svp entrer votre adresse.</div>
+                                        <span id="validationAdresse" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="Email" class="form-label">Email</label>
+                                        <input for="Email" type="email" id="Email-field" class="form-control" placeholder="Enter votre email" required />
+                                        <div class="invalid-feedback">Svp entrer votre email.</div>
+                                        <span id="validationEmail" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="CartierId" class="form-label">Cartier</label>
+                                        <select for="CartierId" asp-items="@((IEnumerable<SelectListItem>)ViewBag.Cartier)" id="CartierId-field" class="form-control" required>
+                                            <option value="">Selectionner un Cartier</option>
+                                        </select>
+                                        <span id="validationCartierId" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="hstack gap-2 justify-content-end">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" onclick="addOrEditStudent()" class="btn btn-success">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mt-2 text-center">
+                                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                                               colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                                    <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                        <h4>Are you Sure ?</h4>
+                                        <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete It!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end modal -->
+                
+            </div><!-- End Page-content -->
+            @Html.Partial("~/Views/Shared/_footer.cshtml")
+        </div>
+
+    </div>
+    <!-- END layout-wrapper -->
+    @Html.Partial("~/Views/Shared/_customizer.cshtml")
+
+    @Html.Partial("~/Views/Shared/_vendor_scripts.cshtml")
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Function to open the modal for adding/editing a student
+        function openStudentModal(studentId) {
+            // Determine whether it's an add or edit operation based on studentId
+            if (studentId) {
+                $('#modalTitle').text('Edit Student');
+                $('#saveButton').text('Save Changes').unbind('click').click(function () {
+                    addOrEditStudent(studentId); // Call the function with studentId
+                });
+                fetchStudentData(studentId); // Fetch existing data for editing
+            } else {
+                $('#modalTitle').text('Add Student');
+                $('#saveButton').text('Add Student').unbind('click').click(addOrEditStudent); // Restore the default click event
+                clearFormFields(); // Clear form fields for adding a new student
+            }
+            $('#studentModal').modal('show'); // Show the modal
+        }
+
+        // Function to fetch existing student data for editing
+        function fetchStudentData(studentId) {
+            $.ajax({
+                type: 'GET',
+                url: '/Dashboard/GetStudentById',
+                data: { StudentId: studentId },
+                success: function (response) {
+                    if (response.success) {
+                        var student = response.student; // Suppose que votre réponse contient un objet 'student'
+                        // Populate form fields with existing student data
+                        $('#studentId').val(student.IdStudent);
+                        $('#Nom-field').val(student.Nom);
+                        $('#Prenom-field').val(student.Prenom);
+                        $('#Cen-field').val(student.Cen);
+                        $('#Cin-field').val(student.Cin);
+                        $('#Tel-field').val(student.Tel);
+                        $('#Adresse-field').val(student.Adresse);
+                        $('#Email-field').val(student.Email);
+                        $('#CartierId-field').val(student.CartierId);
+                    } else {
+                        // Afficher un message d'erreur si nécessaire
+                        console.error('Error:', response.message);
+                        alert('Une erreur s\'est produite lors de la récupération des données de l\'étudiant');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('Une erreur s\'est produite lors de la récupération des données de l\'étudiant');
+                }
+            });
+        }
+
+
+        // Function to clear form fields
+        function clearFormFields() {
+            $('#studentId').val('');
+            $('#Nom-field').val('');
+            $('#Prenom-field').val('');
+            $('#Cen-field').val('');
+            $('#Cin-field').val('');
+            $('#Tel-field').val('');
+            $('#Adresse-field').val('');
+            $('#Email-field').val('');
+            $('#CartierId-field').val('');
+
+
+        }
+
+        // Function to add or edit a student
+        function addOrEditStudent() {
+            var studentId = $('#studentId').val();
+            var actionUrl = studentId ? '/Dashboard/EditStudent' : '/Dashboard/AddStudent';
+            var formData = {
+                Nom: $('#Nom-field').val(),
+                Prenom: $('#Prenom-field').val(),
+                Cen: $('#Cen-field').val(),
+                Cin: $('#Cin-field').val(),
+                Tel: $('#Tel-field').val(),
+                Adresse: $('#Adresse-field').val(),
+                Email: $('#Email-field').val(),
+                CartierId: $('#CartierId-field').val()
+
+            };
+
+            // Clear previous validation messages
+            $('.invalid-feedback').hide();
+            $('.text-danger').text('');
+
+            $.ajax({
+                type: 'POST',
+                url: actionUrl,
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        window.location.reload();
+                    } else {
+                        // Handle validation errors or other errors
+                        $.each(response.errors, function (index, value) {
+                            switch (value) {
+                                case 1:
+                                    $('#validationNom').text("Le nom est requis et doit contenir au moins 3 caractères, uniquement des lettres.");
+                                    break;
+                                case 2:
+                                    $('#validationPrenom').text("Le prénom est requis et doit contenir au moins 3 caractères, uniquement des lettres.");
+                                    break;
+                                case 3:
+                                    $('#validationCen').text("Le CEN est requis.");
+                                    break;
+                                case 4:
+                                    $('#validationCin').text("Le format du CIN est incorrect.");
+                                    break;
+                                case 5:
+                                    $('#validationTel').text("Le numéro de téléphone est invalide.");
+                                    break;
+                                case 6:
+                                    $('#validationEmail').text("L'email est requis et doit être au format valide.");
+                                    break;
+                                case 7:
+                                    $('#validationAdresse').text("L'adresse est requise et doit contenir au moins 5 caractères.");
+                                    break;
+                                case 8:
+                                    $('#validationCartierId').text("Le CartierId est requis.");
+                                    break;
+                                default:
+                                    break;
+                            }
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while adding/editing student');
+                }
+            });
+        }
+
+
+
+        function updateStudent(idstudent) {
+            alert("eeeeeeeeee" + idstudent);
+        }
+
+    </script>
+
+
+    <!-- swiper js -->
+    <script src="~/assets/libs/swiper/swiper-bundle.min.js"></script>
+
+    <!-- profile init js -->
+    <script src="~/assets/js/pages/profile.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/assets/js/app.js"></script>
+
+
+    <!-- prismjs plugin -->
+    <script src="~/assets/libs/prismjs/prism.js"></script>
+    <script src="~/assets/libs/list.js/list.min.js"></script>
+    <script src="~/assets/libs/list.pagination.js/list.pagination.min.js"></script>
+
+    <!-- listjs init -->
+    <script src="~/assets/js/pages/listjs.init.js"></script>
+
+    <!-- Sweet Alerts js -->
+    <script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+    
+
+ 
+</body>
+</html>
