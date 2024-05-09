@@ -160,15 +160,15 @@ function updateList() {
 if (document.getElementById("showModal")) {
     document.getElementById("showModal").addEventListener("show.bs.modal", function (e) {
         if (e.relatedTarget.classList.contains("edit-item-btn")) {
-            document.getElementById("exampleModalLabel").innerHTML = "Edit Customer";
+            document.getElementById("exampleModalLabel").innerHTML = "Edit Student";
             document.getElementById("showModal").querySelector(".modal-footer").style.display = "block";
             document.getElementById("add-btn").innerHTML = "Update";
         } else if (e.relatedTarget.classList.contains("add-btn")) {
-            document.getElementById("exampleModalLabel").innerHTML = "Add Customer";
+            document.getElementById("exampleModalLabel").innerHTML = "Add Student";
             document.getElementById("showModal").querySelector(".modal-footer").style.display = "block";
-            document.getElementById("add-btn").innerHTML = "Add Customer";
+            document.getElementById("add-btn").innerHTML = "Add Student";
         } else {
-            document.getElementById("exampleModalLabel").innerHTML = "List Customer";
+            document.getElementById("exampleModalLabel").innerHTML = "List Student";
             document.getElementById("showModal").querySelector(".modal-footer").style.display = "none";
         }
     });

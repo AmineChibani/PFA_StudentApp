@@ -28,22 +28,23 @@
             <div class="page-content">
 
 
-                <h3>List of Student</h3>
+                <h3>Gestion Etudiants</h3>
 
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
+                            @*
                             <div class="card-header">
                                 <h4 class="card-title mb-0">Add, Edit & Remove</h4>
                             </div><!-- end card header -->
-
+                            *@
                             <div class="card-body">
                                 <div id="customerList">
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm-auto">
                                             <div>
-                                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
-                                                <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                                <button onclick="Addstudent()" type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                                @*<button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>*@
                                             </div>
                                         </div>
                                         <div class="col-sm">
@@ -234,7 +235,7 @@
                                 <div class="modal-footer">
                                     <div class="hstack gap-2 justify-content-end">
                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" onclick="addOrEditStudent()" class="btn btn-success">Save</button>
+                                        <button id="submit_button" type="button" onclick="addOrEditStudent()" class="btn btn-success">Ajouter</button>
                                     </div>
                                 </div>
                             </form>
@@ -265,7 +266,7 @@
                                 </div>
                                 <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
                                     <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete It!</button>
+                                    <button type="button" class="btn w-sm btn-danger" id="delete-record">Yes, Delete It!</button>
                                 </div>
                             </div>
                         </div>
@@ -314,16 +315,16 @@
                 success: function (response) {
                     if (response.success) {
                         var student = response.student; // Suppose que votre réponse contient un objet 'student'
-                        // Populate form fields with existing student data
-                        $('#studentId').val(student.IdStudent);
-                        $('#Nom-field').val(student.Nom);
-                        $('#Prenom-field').val(student.Prenom);
-                        $('#Cen-field').val(student.Cen);
-                        $('#Cin-field').val(student.Cin);
-                        $('#Tel-field').val(student.Tel);
-                        $('#Adresse-field').val(student.Adresse);
-                        $('#Email-field').val(student.Email);
-                        $('#CartierId-field').val(student.CartierId);
+                        // Populate form fields with existing student data  
+                        $('#id-field').val(student.idStudent);
+                        $('#Nom-field').val(student.nom);
+                        $('#Prenom-field').val(student.prenom);
+                        $('#Cen-field').val(student.cen);
+                        $('#Cin-field').val(student.cin);
+                        $('#Tel-field').val(student.tel);
+                        $('#Adresse-field').val(student.adresse);
+                        $('#Email-field').val(student.email);
+                        $('#CartierId-field').val(student.cartier);
                     } else {
                         // Afficher un message d'erreur si nécessaire
                         console.error('Error:', response.message);
@@ -356,7 +357,7 @@
         // Function to add or edit a student
         function addOrEditStudent() {
             var studentId = $('#studentId').val();
-            var actionUrl = studentId ? '/Dashboard/EditStudent' : '/Dashboard/AddStudent';
+            var actionUrl = etat == true ? '/Dashboard/EditStudent' : '/Dashboard/AddStudent';
             var formData = {
                 Nom: $('#Nom-field').val(),
                 Prenom: $('#Prenom-field').val(),
@@ -366,8 +367,12 @@
                 Adresse: $('#Adresse-field').val(),
                 Email: $('#Email-field').val(),
                 CartierId: $('#CartierId-field').val()
-
             };
+
+            if (etat) {
+                formData.studentId = $('#id-field').val();
+            }
+
 
             // Clear previous validation messages
             $('.invalid-feedback').hide();
@@ -421,10 +426,20 @@
             });
         }
 
-
+        var etat = false;
 
         function updateStudent(idstudent) {
-            alert("eeeeeeeeee" + idstudent);
+            var submit_button = document.getElementById("submit_button");
+            submit_button.innerHTML = "Modifier";
+            fetchStudentData(idstudent);
+            etat = true;
+        }
+
+
+
+        function Addstudent(){
+            alert("ddddddddddd");
+            etat = false;
         }
 
     </script>

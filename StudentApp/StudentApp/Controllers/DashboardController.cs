@@ -82,7 +82,7 @@ namespace StudentApp.Controllers
         {
             Student student = _studentRepository.GetStudentById(studentId);
 
-            if (student == null)
+            if (student != null)
             {
                 //return Json(new { success = false, IdStudent = student.IdStudent, Nom= student.Nom, Prenom= student.Prenom, Cen= student.Cen, Cin= student.Cin, Tel= student.Tel, Adresse= student.Adresse, Email= student.Email, Password= student.Password, Etat= student.Etat, CartierId= student.Cartier });
                 return Json(new { success = true, student });
