@@ -1,6 +1,6 @@
 ﻿@using StudentApp.ViewModels
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "Student";
     Layout = null;
 }
 
@@ -61,11 +61,7 @@
                                         <table class="table align-middle table-nowrap">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th scope="col" style="width: 50px;">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                                        </div>
-                                                    </th>
+                                                    
                                                     <th class="sort" data-sort="nom">Nom</th>
                                                     <th class="sort" data-sort="prenom">Preom</th>
                                                     <th class="sort" data-sort="cen">Cen</th>
@@ -82,11 +78,7 @@
                                                 @foreach (var student in Model)
                                                 {
                                                     <tr>
-                                                        <th scope="row">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                            </div>
-                                                        </th>
+                                                        
                                                         <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">@student.IdStudent</a></td>
                                                         <td class="nom">@student.Nom</td>
                                                         <td class="prenom">@student.Prenom</td>
@@ -115,7 +107,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="remove">
-                                                                    <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                                    <button class="btn btn-sm btn-danger remove-item-btn" onclick="removeStudent(@student.IdStudent)" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -436,16 +428,37 @@
         }
 
 
+        // deleteStudent function
+        function removeStudent(studentId) {
+            $('#deleteRecordModal').modal('show'); 
 
-        function Addstudent(){
-            alert("ddddddddddd");
-            etat = false;
+            $('#delete-record').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Dashboard/DeleteStudent', 
+                    data: { studentId: studentId }, 
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.reload(); 
+                        } else {
+                            alert('Failed to delete the student: ' + response.message); 
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while communicating with the server'); 
+                });
+            });
         }
+
+
+
+
 
     </script>
 
 
-    <!-- swiper js -->
+    @* <!-- swiper js -->
     <script src="~/assets/libs/swiper/swiper-bundle.min.js"></script>
 
     <!-- profile init js -->
@@ -464,7 +477,7 @@
     <script src="~/assets/js/pages/listjs.init.js"></script>
 
     <!-- Sweet Alerts js -->
-    <script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script> *@
 
     
 
