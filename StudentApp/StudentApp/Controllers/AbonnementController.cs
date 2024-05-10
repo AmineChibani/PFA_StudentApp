@@ -2,7 +2,7 @@
 
 namespace StudentApp.Controllers
 {
-    public class Abonnement : Controller
+    public class AbonnementController : Controller
     {
         public IActionResult Index()
         {
