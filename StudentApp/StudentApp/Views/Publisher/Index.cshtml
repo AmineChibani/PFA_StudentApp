@@ -1,10 +1,10 @@
 ﻿@using StudentApp.ViewModels
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "Publishers";
     Layout = null;
 }
 
-@model IList<Student>
+@model IList<Publisher>
 <!doctype html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
 <head>
@@ -28,7 +28,7 @@
             <div class="page-content">
 
 
-                <h3>Gestion Etudiants</h3>
+                <h3>Gestion Publishers</h3>
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -43,7 +43,7 @@
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm-auto">
                                             <div>
-                                                <button onclick="Addstudent()" type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                                <button onclick="Addpublisher()" type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
                                                 @*<button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>*@
                                             </div>
                                         </div>
@@ -67,19 +67,13 @@
                                                         </div>
                                                     </th>
                                                     <th class="sort" data-sort="nom">Nom</th>
-                                                    <th class="sort" data-sort="prenom">Preom</th>
-                                                    <th class="sort" data-sort="cen">Cen</th>
-                                                    <th class="sort" data-sort="cin">Cin</th>
-                                                    <th class="sort" data-sort="tel">Tel</th>
-                                                    <th class="sort" data-sort="adresse">Adresse</th>
-                                                    <th class="sort" data-sort="email">Email</th>
-                                                    <th class="sort" data-sort="etat">Etat</th>
-                                                    <th class="sort" data-sort="cartier">Cartier</th>
+                                                    <th class="sort" data-sort="contact">Contact</th>
+                                                    <th class="sort" data-sort="telephone">telephone</th>
                                                     <th class="sort" data-sort="action">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="list form-check-all">
-                                                @foreach (var student in Model)
+                                                @foreach (var Publisher in Model)
                                                 {
                                                     <tr>
                                                         <th scope="row">
@@ -87,35 +81,20 @@
                                                                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                                             </div>
                                                         </th>
-                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">@student.IdStudent</a></td>
-                                                        <td class="nom">@student.Nom</td>
-                                                        <td class="prenom">@student.Prenom</td>
-                                                        <td class="cen">@student.Cen</td>
-                                                        <td class="cin">@student.Cin</td>
-                                                        <td class="tel">@student.Tel</td>
-                                                        <td class="adresse">@student.Adresse</td>
-                                                        <td class="email">@student.Email</td>
-                                                        <td class="etat">
-                                                            @if (student.Etat)
-                                                            {
-                                                                <span class="badge bg-success-subtle text-success text-uppercase">Active</span>
-                                                            }
-                                                            else
-                                                            {
-                                                                <span class="badge bg-danger-subtle text-danger text-uppercase">Block</span>
-                                                            }
-                                                        </td>
-                                                        <td class="cartier">@student.CartierNavigation.Libelle</td>
+                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">@Publisher.Id</a></td>
+                                                        <td class="nom">@Publisher.Name</td>
+                                                        <td class="prenom">@Publisher.Contact</td>
+                                                        <td class="prenom">@Publisher.Telephone</td>  
                                                         <td>
                                                             <div class="d-flex gap-2">
                                                                 <div class="edit">
-                                                                    <button onclick="updateStudent(@student.IdStudent)" class="btn btn-sm btn-success edit-item-btn"
+                                                                    <button onclick="updatePublisher(@Publisher.Id)" class="btn btn-sm btn-success edit-item-btn"
                                                                             data-bs-toggle="modal" data-bs-target="#showModal">
                                                                         Edit
                                                                     </button>
                                                                 </div>
                                                                 <div class="remove">
-                                                                    <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                                    <button onclick="DeletePublisher(@Publisher.Id)" class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -167,75 +146,36 @@
                                         id="close-modal"></button>
                             </div>
 
-                            <form id="StudentForm">
+                            <form id="PublisherForm">
 
                                 <div class="modal-body">
                                     <div class="mb-3">
-                                        <input for="IdStudent" type="hidden" id="id-field" class="form-control" placeholder="ID" readonly />
+                                        <input for="PublisherId" type="hidden" id="id-field" class="form-control" placeholder="ID" readonly />
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="Nom" class="form-label">Nom</label>
-                                        <input for="Nom" type="text" id="Nom-field" class="form-control" placeholder="Enter votre nom" required />
-                                        <div class="invalid-feedback">Svp entrer votre nom.</div>
+                                        <label for="Nom" class="form-label">Publisher Name</label>
+                                        <input for="Nom" type="text" id="Nom-field" class="form-control" placeholder="Publisher Name" required />
                                         <span id="validationNom" class="text-danger"></span>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="Prenom" class="form-label">Prenom</label>
-                                        <input for="Prenom" type="text" id="Prenom-field" class="form-control" placeholder="Enter votre prenom" required />
-                                        <div class="invalid-feedback">Svp entrer votre prenom.</div>
-                                        <span id="validationPrenom" class="text-danger"></span>
+                                        <label for="contact" class="form-label">Publisher Contact</label>
+                                        <input for="contact" type="text" id="contact-field" class="form-control" placeholder="Publisher Contact" required />
+                                        <span id="validationContact" class="text-danger"></span>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="Cen" class="form-label">Cen</label>
-                                        <input for="Cen" type="text" id="Cen-field" class="form-control" placeholder="Enter votre cen" required />
-                                        <div class="invalid-feedback">Svp entrer votre cen.</div>
-                                        <span id="validationCen" class="text-danger"></span>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="Cin" class="form-label">Cin</label>
-                                        <input for="Cin" type="text" id="Cin-field" class="form-control" placeholder="Enter votre cin" required />
-                                        <div class="invalid-feedback">Svp entrer votre cin.</div>
-                                        <span id="validationCin" class="text-danger"></span>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="Tel" class="form-label">Tel</label>
-                                        <input for="Tel" type="text" id="Tel-field" class="form-control" placeholder="Enter votre tel" required />
-                                        <div class="invalid-feedback">Svp entrer votre tel.</div>
+                                        <label for="Tel" class="form-label">Publisher Telephone</label>
+                                        <input for="Tel" type="text" id="Tel-field" class="form-control" placeholder="Publisher Telephone" required />
                                         <span id="validationTel" class="text-danger"></span>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="Adresse" class="form-label">Adresse</label>
-                                        <input for="Adresse" type="text" id="Adresse-field" class="form-control" placeholder="Enter votre adresse" required />
-                                        <div class="invalid-feedback">Svp entrer votre adresse.</div>
-                                        <span id="validationAdresse" class="text-danger"></span>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="Email" class="form-label">Email</label>
-                                        <input for="Email" type="email" id="Email-field" class="form-control" placeholder="Enter votre email" required />
-                                        <div class="invalid-feedback">Svp entrer votre email.</div>
-                                        <span id="validationEmail" class="text-danger"></span>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="CartierId" class="form-label">Cartier</label>
-                                        <select for="CartierId" asp-items="@((IEnumerable<SelectListItem>)ViewBag.Cartier)" id="CartierId-field" class="form-control" required>
-                                            <option default value="">Selectionner un Cartier</option>
-                                        </select>
-                                        <span id="validationCartierId" class="text-danger"></span>
                                     </div>
 
                                 </div>
                                 <div class="modal-footer">
                                     <div class="hstack gap-2 justify-content-end">
                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                        <button id="submit_button" type="button" onclick="addOrEditStudent()" class="btn btn-success">Ajouter</button>
+                                        <button id="submit_button" type="button" onclick="addOrEditPublisher()" class="btn btn-success">Ajouter</button>
                                     </div>
                                 </div>
                             </form>
@@ -266,7 +206,7 @@
                                 </div>
                                 <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
                                     <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn w-sm btn-danger" id="delete-record">Yes, Delete It!</button>
+                                    <button type="button" onclick="ConfirmeDeletePublisher()" class="btn w-sm btn-danger" id="delete-record">Yes, Delete It!</button>
                                 </div>
                             </div>
                         </div>
@@ -289,42 +229,24 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // Function to open the modal for adding/editing a student
-        function openStudentModal(studentId) {
-            // Determine whether it's an add or edit operation based on studentId
-            if (studentId) {
-                $('#modalTitle').text('Edit Student');
-                $('#saveButton').text('Save Changes').unbind('click').click(function () {
-                    addOrEditStudent(studentId); // Call the function with studentId
-                });
-                fetchStudentData(studentId); // Fetch existing data for editing
-            } else {
-                $('#modalTitle').text('Add Student');
-                $('#saveButton').text('Add Student').unbind('click').click(addOrEditStudent); // Restore the default click event
-                clearFormFields(); // Clear form fields for adding a new student
-            }
-            $('#studentModal').modal('show'); // Show the modal
-        }
+
+
+        let ModalLabel = document.getElementById("exampleModalLabel");
 
         // Function to fetch existing student data for editing
-        function fetchStudentData(studentId) {
+        function fetchPublishrData(publisherId) {
             $.ajax({
                 type: 'GET',
-                url: '/Dashboard/GetStudentById',
-                data: { StudentId: studentId },
+                url: '/Publisher/GetPulisherById',
+                data: { publisherId: publisherId },
                 success: function (response) {
                     if (response.success) {
-                        var student = response.student; // Suppose que votre réponse contient un objet 'student'
+                        var publisher = response.publisher; // Suppose que votre réponse contient un objet 'student'
                         // Populate form fields with existing student data  
-                        $('#id-field').val(student.idStudent);
-                        $('#Nom-field').val(student.nom);
-                        $('#Prenom-field').val(student.prenom);
-                        $('#Cen-field').val(student.cen);
-                        $('#Cin-field').val(student.cin);
-                        $('#Tel-field').val(student.tel);
-                        $('#Adresse-field').val(student.adresse);
-                        $('#Email-field').val(student.email);
-                        $('#CartierId-field').val(student.cartier);
+                        console.log(publisher);
+                        $('#Nom-field').val(publisher.name);
+                        $('#Tel-field').val(publisher.telephone);
+                        $('#contact-field').val(publisher.contact);
                     } else {
                         // Afficher un message d'erreur si nécessaire
                         console.error('Error:', response.message);
@@ -341,36 +263,22 @@
 
         // Function to clear form fields
         function clearFormFields() {
-            $('#studentId').val('');
             $('#Nom-field').val('');
-            $('#Prenom-field').val('');
-            $('#Cen-field').val('');
-            $('#Cin-field').val('');
             $('#Tel-field').val('');
-            $('#Adresse-field').val('');
-            $('#Email-field').val('');
-            $('#CartierId-field').val('');
-
-
+            $('#Contact-field').val('');
         }
 
         // Function to add or edit a student
-        function addOrEditStudent() {
-            var studentId = $('#studentId').val();
-            var actionUrl = etat == true ? '/Dashboard/EditStudent' : '/Dashboard/AddStudent';
+        function addOrEditPublisher() {
+            var actionUrl = etat == true ? '/Publisher/EditPublisher' : '/Publisher/AddPublisher';
             var formData = {
                 Nom: $('#Nom-field').val(),
-                Prenom: $('#Prenom-field').val(),
-                Cen: $('#Cen-field').val(),
-                Cin: $('#Cin-field').val(),
                 Tel: $('#Tel-field').val(),
-                Adresse: $('#Adresse-field').val(),
-                Email: $('#Email-field').val(),
-                CartierId: $('#CartierId-field').val()
+                Contact : $('#contact-field').val()
             };
 
             if (etat) {
-                formData.studentId = $('#id-field').val();
+                formData.PublisherId = $('#id-field').val();
             }
 
 
@@ -386,32 +294,16 @@
                     if (response.success) {
                         window.location.reload();
                     } else {
-                        // Handle validation errors or other errors
                         $.each(response.errors, function (index, value) {
                             switch (value) {
                                 case 1:
-                                    $('#validationNom').text("Le nom est requis et doit contenir au moins 3 caractères, uniquement des lettres.");
+                                    $('#validationNom').text("Name  est requis et doit contenir au moins 3 caractères, uniquement des lettres.");
                                     break;
                                 case 2:
-                                    $('#validationPrenom').text("Le prénom est requis et doit contenir au moins 3 caractères, uniquement des lettres.");
+                                    $('#validationContact').text("Le Contact est requis et doit être au format valide.");
                                     break;
                                 case 3:
-                                    $('#validationCen').text("Le CEN est requis.");
-                                    break;
-                                case 4:
-                                    $('#validationCin').text("Le format du CIN est incorrect.");
-                                    break;
-                                case 5:
                                     $('#validationTel').text("Le numéro de téléphone est invalide.");
-                                    break;
-                                case 6:
-                                    $('#validationEmail').text("L'email est requis et doit être au format valide.");
-                                    break;
-                                case 7:
-                                    $('#validationAdresse').text("L'adresse est requise et doit contenir au moins 5 caractères.");
-                                    break;
-                                case 8:
-                                    $('#validationCartierId').text("Le CartierId est requis.");
                                     break;
                                 default:
                                     break;
@@ -428,19 +320,50 @@
 
         var etat = false;
 
-        function updateStudent(idstudent) {
+        function updatePublisher(publisherId) {
+            ModalLabel.innerHTML = "Edit Publisher";
             var submit_button = document.getElementById("submit_button");
             submit_button.innerHTML = "Modifier";
-            fetchStudentData(idstudent);
+            fetchPublishrData(publisherId);
             etat = true;
         }
 
 
 
-        function Addstudent(){
-            alert("ddddddddddd");
+        function Addpublisher() {
+            ModalLabel.innerHTML = "Add Publisher";
             etat = false;
         }
+
+        let pubId = 0;
+
+        function DeletePublisher(publisherId) {
+
+            pubId = publisherId;
+        }
+
+        function ConfirmeDeletePublisher() {
+            $.ajax({
+                type: 'POST',
+                url: "/Publisher/DeletePublisher",
+                data: { publisherId: pubId },
+                success: function (response) {
+                    if (response.success) {
+                        window.location.reload();
+                    }
+                    else {
+                        console.error('Error:', response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while adding/editing student');
+                }
+            });
+        }
+
+        
+
 
     </script>
 
