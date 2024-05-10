@@ -4,7 +4,7 @@ Author: Themesbrand
 Website: https://Themesbrand.com/
 Contact: Themesbrand@gmail.com
 File: list Js File
-*/
+*//*
 
 var checkAll = document.getElementById("checkAll");
 if (checkAll) {
@@ -455,4 +455,4 @@ var paginationList = new List('pagination-list', {
     valueNames: ['pagi-list'],
     page: 3,
     pagination: true
-});
+});*/

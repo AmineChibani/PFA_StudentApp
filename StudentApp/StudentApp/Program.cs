@@ -10,6 +10,7 @@ using StudentApp.Repository.Student;
 using StudentApp.Repository.Cartier;
 using StudentApp.Middlewares;
 using StudentApp.Services;
+using StudentApp.Repository.Abonnement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ builder.Services.AddDbContext<U669885128UZsNtContext>(options =>
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IStudentMapper , StudentMapper>();
 builder.Services.AddScoped<ICartierRepository, CartierRepository>();
+builder.Services.AddScoped<IAbonnementRepository, AbonnementRepository>();
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddTransient<SmsService>();
