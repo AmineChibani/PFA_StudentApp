@@ -31,7 +31,7 @@ public partial class Student
 
     public virtual ICollection<Abonnement> Abonnements { get; set; } = new List<Abonnement>();
 
-    public virtual Cartier? CartierNavigation { get; set; } = null!;
+    public virtual Cartier CartierNavigation { get; set; } = null!;
 
     public virtual ICollection<Click> Clicks { get; set; } = new List<Click>();
 

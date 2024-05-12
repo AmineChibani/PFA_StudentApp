@@ -9,5 +9,5 @@ public partial class O
 
     public string Libelle { get; set; } = null!;
 
-    public virtual ICollection<Campaign> IdCampaigns { get; set; } = new List<Campaign>();
+    public virtual ICollection<CampainO> CampainOs { get; set; } = new List<CampainO>();
 }

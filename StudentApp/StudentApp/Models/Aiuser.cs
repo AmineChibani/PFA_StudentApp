@@ -16,6 +16,4 @@ public partial class Aiuser
     public DateTime UpdatedAt { get; set; }
 
     public virtual ICollection<AudioDatum> AudioData { get; set; } = new List<AudioDatum>();
-
-    public virtual ICollection<BannedUser> BannedUsers { get; set; } = new List<BannedUser>();
 }

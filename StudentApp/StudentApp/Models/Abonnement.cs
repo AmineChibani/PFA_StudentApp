@@ -17,5 +17,5 @@ public partial class Abonnement
 
     public virtual ICollection<AbonnementLigne> AbonnementLignes { get; set; } = new List<AbonnementLigne>();
 
-    public virtual Student Student { get; set; } 
+    public virtual Student Student { get; set; } = null!;
 }
