@@ -13,6 +13,10 @@ namespace StudentApp.Controllers
         private readonly IAbonnementRepository _abonnementRepository;
         private readonly IStudentRepository _studentRepository;
 
+        /*public AbonnementController()
+        {
+            
+        }*/
 
         public AbonnementController(IAbonnementRepository abonnementRepository, IStudentRepository studentRepository)
         {
