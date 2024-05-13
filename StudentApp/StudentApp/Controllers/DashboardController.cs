@@ -18,14 +18,12 @@ namespace StudentApp.Controllers
         private readonly IStudentRepository _studentRepository;
         private readonly IStudentMapper _studentMapper;
         private readonly ICartierRepository _cartierRepository;
-        private readonly IAbonnementRepository _abonnementRepository;
 
-        public DashboardController(IStudentRepository studentRepository, IStudentMapper studentMapper, ICartierRepository cartierRepository, IAbonnementRepository abonnementRepository)
+        public DashboardController(IStudentRepository studentRepository, IStudentMapper studentMapper, ICartierRepository cartierRepository)
         {
             _studentMapper = studentMapper;
             _studentRepository = studentRepository;
             _cartierRepository = cartierRepository;
-            _abonnementRepository = abonnementRepository;
         }
         public IActionResult Index()
         {
@@ -156,67 +154,7 @@ namespace StudentApp.Controllers
 
 
 
-        public IActionResult Abonnement()
-        {
-            IList<Abonnement> abonnmentList = _abonnementRepository.GetAllAbonnement();
-            return PartialView("_AbonnementPartial", abonnmentList);
-        }
-
-        public IActionResult AddAbonnement()
-        {
-            //get student data base
-            var students = _studentRepository.GetAllStudents();
-            ViewData["StudentId"] = new SelectList(students, "IdStudent", "Nom");
-            //get ligne api
-            string apiUrl = "https://lyfytech.com/APIScanner/listline.php";
-
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    HttpResponseMessage response = client.GetAsync(apiUrl).Result;
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string apiResponse = response.Content.ReadAsStringAsync().Result;
-                        List<LineVM> lines = Newtonsoft.Json.JsonConvert.DeserializeObject<List<LineVM>>(apiResponse);
-                        ViewBag.Lines = lines;
-                        return PartialView("_AddAbonnementPartial");
-                    }
-                    else
-                    {
-                        return View("Error");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Exception: {ex.Message}");
-                    return View("Error");
-                }
-            }
-        }
-
-        [HttpPost]
-        public IActionResult AddAbonnement(Abonnement abonnement)
-        {
-            try
-            {
-                bool success = _abonnementRepository.AddAbonnement(abonnement);
-
-                if (success)
-                {
-                    return Json(new { success = true });
-                }
-                else
-                {
-                    return Json(new { success = false, message = "Failed to add subscription" });
-                }
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "An error occurred while adding the subscription" });
-            }
-        }
+       
 
 
         public IActionResult Historique()
