@@ -47,8 +47,29 @@
     <None Include="Views\Authentication\SuccessMessageCover.cshtml" />
     <None Include="Views\Authentication\TwoStepVerificationBasic.cshtml" />
     <None Include="Views\Authentication\TwoStepVerificationCover.cshtml" />
+    <None Include="Views\Dashboard1\Analytics.cshtml" />
+    <None Include="Views\Dashboard1\CRM.cshtml" />
+    <None Include="Views\Dashboard1\Crypto.cshtml" />
+    <None Include="Views\Dashboard1\Index.cshtml" />
+    <None Include="Views\Dashboard1\Job.cshtml" />
+    <None Include="Views\Dashboard1\NFT.cshtml" />
+    <None Include="Views\Dashboard1\Projects.cshtml" />
     <None Include="Views\Error\Errors404Basic.cshtml" />
     <None Include="Views\Error\Errors500.cshtml" />
+    <None Include="Views\Forms\Advanced.cshtml" />
+    <None Include="Views\Forms\BasicElements.cshtml" />
+    <None Include="Views\Forms\CheckboxsRadios.cshtml" />
+    <None Include="Views\Forms\Editors.cshtml" />
+    <None Include="Views\Forms\FileUploads.cshtml" />
+    <None Include="Views\Forms\FormLayouts.cshtml" />
+    <None Include="Views\Forms\FormSelect.cshtml" />
+    <None Include="Views\Forms\InputMasks.cshtml" />
+    <None Include="Views\Forms\Pickers.cshtml" />
+    <None Include="Views\Forms\RangeSlider.cshtml" />
+    <None Include="Views\Forms\Select2.cshtml" />
+    <None Include="Views\Forms\Validation.cshtml" />
+    <None Include="Views\Forms\Wizard.cshtml" />
+    <None Include="Views\ProfileAdmin\ProfileSimpleAdmin.cshtml" />
     <None Include="Views\Shared\_AddStudentForm.cshtml" />
   </ItemGroup>
 

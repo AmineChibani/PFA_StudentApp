@@ -11,6 +11,7 @@ using StudentApp.Repository.Cartier;
 using StudentApp.Middlewares;
 using StudentApp.Services;
 using StudentApp.Repository.Abonnement;
+using StudentApp.middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,9 +46,10 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ResponseVerificationMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(); 
 
 //configuration du session
 app.UseSession();
@@ -58,6 +60,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Dashboard}/{action=Student}/{id?}");
+    pattern: "{controller=Ads}/{action=AjouterAd}/{id?}");
 
 app.Run();

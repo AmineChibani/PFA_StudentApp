@@ -25,6 +25,8 @@ public partial class Campaign
 
     public int IdLocation { get; set; }
 
+    public virtual ICollection<CampainO> CampainOs { get; set; } = new List<CampainO>();
+
     public virtual ICollection<Click> Clicks { get; set; } = new List<Click>();
 
     public virtual AgeRange IdAgeRangeNavigation { get; set; } = null!;
@@ -34,6 +36,4 @@ public partial class Campaign
     public virtual Publisher IdPublisherNavigation { get; set; } = null!;
 
     public virtual AdType IdTypeNavigation { get; set; } = null!;
-
-    public virtual ICollection<O> IdOs { get; set; } = new List<O>();
 }

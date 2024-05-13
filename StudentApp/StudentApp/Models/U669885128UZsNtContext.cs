@@ -30,11 +30,11 @@ public partial class U669885128UZsNtContext : DbContext
 
     public virtual DbSet<AudioDatum> AudioData { get; set; }
 
-    public virtual DbSet<BannedUser> BannedUsers { get; set; }
-
     public virtual DbSet<BorderCartier> BorderCartiers { get; set; }
 
     public virtual DbSet<Campaign> Campaigns { get; set; }
+
+    public virtual DbSet<CampainO> CampainOs { get; set; }
 
     public virtual DbSet<Cartier> Cartiers { get; set; }
 
@@ -48,11 +48,7 @@ public partial class U669885128UZsNtContext : DbContext
 
     public virtual DbSet<O> Os { get; set; }
 
-    public virtual DbSet<Pc> Pcs { get; set; }
-
     public virtual DbSet<PointDeRecherche> PointDeRecherches { get; set; }
-
-    public virtual DbSet<Ps4> Ps4s { get; set; }
 
     public virtual DbSet<Publisher> Publishers { get; set; }
 
@@ -233,34 +229,6 @@ public partial class U669885128UZsNtContext : DbContext
                 .HasConstraintName("fk_AIuserId");
         });
 
-        modelBuilder.Entity<BannedUser>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.UseCollation("utf8mb4_unicode_ci");
-
-            entity.HasIndex(e => e.UserId, "user_id");
-
-            entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
-                .HasColumnName("id");
-            entity.Property(e => e.BannedAt)
-                .HasDefaultValueSql("current_timestamp()")
-                .HasColumnType("timestamp")
-                .HasColumnName("banned_at");
-            entity.Property(e => e.Reason)
-                .HasMaxLength(500)
-                .HasColumnName("reason");
-            entity.Property(e => e.UserId)
-                .HasColumnType("int(11)")
-                .HasColumnName("user_id");
-
-            entity.HasOne(d => d.User).WithMany(p => p.BannedUsers)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("BannedUsers_ibfk_1");
-        });
-
         modelBuilder.Entity<BorderCartier>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -345,6 +313,33 @@ public partial class U669885128UZsNtContext : DbContext
                 .HasForeignKey(d => d.IdType)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Campaign_ibfk_1");
+        });
+
+        modelBuilder.Entity<CampainO>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("Campain_OS");
+
+            entity.HasIndex(e => e.IdCampaign, "id_Campaign");
+
+            entity.Property(e => e.Id).HasColumnType("int(11)");
+            entity.Property(e => e.IdCampaign)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_Campaign");
+            entity.Property(e => e.IdOs)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_OS");
+
+            entity.HasOne(d => d.IdCampaignNavigation).WithMany(p => p.CampainOs)
+                .HasForeignKey(d => d.IdCampaign)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Campain_OS_ibfk_1");
+
+            entity.HasOne(d => d.IdOsNavigation).WithMany(p => p.CampainOs)
+                .HasForeignKey(d => d.IdOs)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Campain_OS_ibfk_2");
         });
 
         modelBuilder.Entity<Cartier>(entity =>
@@ -486,57 +481,6 @@ public partial class U669885128UZsNtContext : DbContext
             entity.Property(e => e.Libelle)
                 .HasMaxLength(30)
                 .HasColumnName("libelle");
-
-            entity.HasMany(d => d.IdCampaigns).WithMany(p => p.IdOs)
-                .UsingEntity<Dictionary<string, object>>(
-                    "CampainO",
-                    r => r.HasOne<Campaign>().WithMany()
-                        .HasForeignKey("IdCampaign")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("Campain_OS_ibfk_1"),
-                    l => l.HasOne<O>().WithMany()
-                        .HasForeignKey("IdOs")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("Campain_OS_ibfk_2"),
-                    j =>
-                    {
-                        j.HasKey("IdOs", "IdCampaign")
-                            .HasName("PRIMARY")
-                            .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-                        j.ToTable("Campain_OS");
-                        j.HasIndex(new[] { "IdCampaign" }, "id_Campaign");
-                        j.IndexerProperty<int>("IdOs")
-                            .HasColumnType("int(11)")
-                            .HasColumnName("id_OS");
-                        j.IndexerProperty<int>("IdCampaign")
-                            .HasColumnType("int(11)")
-                            .HasColumnName("id_Campaign");
-                    });
-        });
-
-        modelBuilder.Entity<Pc>(entity =>
-        {
-            entity.HasKey(e => e.PcId).HasName("PRIMARY");
-
-            entity.ToTable("pcs");
-
-            entity.Property(e => e.PcId)
-                .ValueGeneratedNever()
-                .HasColumnType("int(11)")
-                .HasColumnName("pc_id");
-            entity.Property(e => e.EndTime)
-                .HasColumnType("datetime")
-                .HasColumnName("end_time");
-            entity.Property(e => e.Price)
-                .HasColumnType("int(100)")
-                .HasColumnName("price");
-            entity.Property(e => e.StartTime)
-                .HasColumnType("datetime")
-                .HasColumnName("start_time");
-            entity.Property(e => e.Status)
-                .HasDefaultValueSql("'available'")
-                .HasColumnType("enum('available','in_use','out_use')")
-                .HasColumnName("status");
         });
 
         modelBuilder.Entity<PointDeRecherche>(entity =>
@@ -553,30 +497,6 @@ public partial class U669885128UZsNtContext : DbContext
             entity.Property(e => e.Neighborhood)
                 .HasMaxLength(100)
                 .HasColumnName("neighborhood");
-        });
-
-        modelBuilder.Entity<Ps4>(entity =>
-        {
-            entity.HasKey(e => e.Ps4Id).HasName("PRIMARY");
-
-            entity.ToTable("ps4s");
-
-            entity.Property(e => e.Ps4Id)
-                .HasColumnType("int(11)")
-                .HasColumnName("ps4_id");
-            entity.Property(e => e.EndTime)
-                .HasColumnType("datetime")
-                .HasColumnName("end_time");
-            entity.Property(e => e.Price)
-                .HasColumnType("int(100)")
-                .HasColumnName("price");
-            entity.Property(e => e.StartTime)
-                .HasColumnType("datetime")
-                .HasColumnName("start_time");
-            entity.Property(e => e.Status)
-                .HasDefaultValueSql("'available'")
-                .HasColumnType("enum('available','in_use','out_use')")
-                .HasColumnName("status");
         });
 
         modelBuilder.Entity<Publisher>(entity =>

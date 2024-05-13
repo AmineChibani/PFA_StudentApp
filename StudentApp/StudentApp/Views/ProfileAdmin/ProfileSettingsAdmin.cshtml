@@ -1,0 +1,536 @@
+﻿@using StudentApp.ViewModels.Admin
+@{
+    ViewBag.Title = "Profile Settings";
+    Layout = null;
+}
+
+@model ProfileSettingsAdminVM
+
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
+<head>
+    @Html.Partial("~/Views/Shared/_title_meta.cshtml")
+    @Html.Partial("~/Views/Shared/_head_css.cshtml")
+</head>
+<body>
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        @Html.Partial("~/Views/Shared/_menu.cshtml")
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="position-relative mx-n4 mt-n4">
+                        <div class="profile-wid-bg profile-setting-img">
+                            <img src="~/userImages/client.png" class="profile-wid-img" alt="" id="coverImage">
+                            <div class="overlay-content">
+                                <div class="text-end p-3">
+                                    <div class="p-0 ms-auto rounded-circle profile-photo-edit">
+                                        <input id="profile-foreground-img-file-input" type="file"
+                                               class="profile-foreground-img-file-input">
+                                        <label for="profile-foreground-img-file-input"
+                                               class="profile-photo-edit btn btn-light">
+                                            <i class="ri-image-edit-line align-bottom me-1"></i> Change Cover
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xxl-3">
+                            <div class="card mt-n5">
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
+                                            <img src="~/userImages/client.png"
+                                                 class="rounded-circle avatar-xl img-thumbnail user-profile-image"
+                                                 alt="user-profile-image">
+                                            <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                                                <input id="profile-img-file-input" type="file"
+                                                       class="profile-img-file-input">
+                                                <label for="profile-img-file-input"
+                                                       class="profile-photo-edit avatar-xs">
+                                                    <span class="avatar-title rounded-circle bg-light text-body">
+                                                        <i class="ri-camera-fill"></i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <h5 class="fs-16 mb-1">@Model.Prenom @Model.Nom</h5>
+                                        <p class="text-muted mb-0">Client</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!--end col-->
+                        <div class="col-xxl-9">
+                            <div class="card mt-xxl-n5">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0"
+                                        role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-bs-toggle="tab" href="#personalDetails"
+                                               role="tab">
+                                                <i class="fas fa-home"></i>
+                                                Personal Details
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab">
+                                                <i class="far fa-user"></i>
+                                                Change Password
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#privacy" role="tab">
+                                                <i class="far fa-envelope"></i>
+                                                Privacy Policy
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body p-4">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="personalDetails" role="tabpanel">
+                                            <form method="post" action="ProfileSettingsAdmin">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label asp-for="Prenom" class="form-label">
+                                                                First
+                                                                Name
+                                                            </label>
+                                                            <input asp-for="Prenom" type="text" class="form-control" id="firstnameInput"
+                                                                   placeholder="Enter your firstname" value="@Model.Prenom">
+                                                            <span asp-validation-for="Prenom" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label asp-for="Nom" class="form-label">
+                                                                Last
+                                                                Name
+                                                            </label>
+                                                            <input asp-for="Nom" type="text" class="form-control" id="lastnameInput"
+                                                                   placeholder="Enter your lastname" value="@Model.Nom">
+                                                            <span asp-validation-for="Nom" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label asp-for="Email" class="form-label">
+                                                                Adresse
+                                                            </label>
+                                                            <input asp-for="Email" type="text" class="form-control" id="firstnameInput"
+                                                                   placeholder="Enter your Adresse" value="@Model.Email">
+                                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-lg-12">
+                                                        <div class="hstack gap-2 justify-content-end">
+                                                            <button type="submit"
+                                                                    class="btn btn-primary">
+                                                                Updates
+                                                            </button>
+                                                            <a asp-action="ProfileSimpleAdmin" type="button"
+                                                                    class="btn btn-soft-success">
+                                                                Cancel
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                </div>
+                                                <!--end row-->
+                                            </form>
+                                        </div>
+                                        <!--end tab-pane-->
+                                        <div class="tab-pane" id="changePassword" role="tabpanel">
+                                            <form id="changePasswordForm">
+                                                <div class="row g-2">
+                                                    <div class="col-lg-4">
+                                                        <div>
+                                                            <label for="oldpasswordInput" class="form-label">
+                                                                Old
+                                                                Password*
+                                                            </label>
+                                                            <input type="password" class="form-control"
+                                                                   id="oldpasswordInput"
+                                                                   name="oldpassword"
+                                                                   placeholder="Enter current password">
+                                                            <span id="validationpassword" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-lg-4">
+                                                        <div>
+                                                            <label for="newpasswordInput" class="form-label">
+                                                                New
+                                                                Password*
+                                                            </label>
+                                                            <input type="password" class="form-control"
+                                                                   id="newpasswordInput" name="newpassword" placeholder="Enter new password">
+                                                            <span id="validationnewpassword" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-lg-4">
+                                                        <div>
+                                                            <label for="confirmpasswordInput" class="form-label">
+                                                                Confirm
+                                                                Password*
+                                                            </label>
+                                                            <input type="password" class="form-control"
+                                                                   id="confirmpasswordInput"
+                                                                   name="confirmpassword"
+                                                                   placeholder="Confirm password">
+                                                            <span id="validationconfirmpassword" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <a href="javascript:void(0);"
+                                                               class="link-primary text-decoration-underline">
+                                                                Forgot
+                                                                Password ?
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    <div class="col-lg-12">
+                                                        <div class="text-end">
+                                                            <input type="submit" value="Change Password" class=" btn btn-success" />
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                </div>
+                                                <!--end row-->
+                                            </form>
+                                        </div>
+                                        <!--end tab-pane-->
+                                        <div class="tab-pane" id="privacy" role="tabpanel">
+                                            <div class="mb-4 pb-2">
+                                                <h5 class="card-title text-decoration-underline mb-3">Security:</h5>
+                                                <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0">
+                                                    <div class="flex-grow-1">
+                                                        <h6 class="fs-14 mb-1">Two-factor Authentication</h6>
+                                                        <p class="text-muted">
+                                                            Two-factor authentication is an enhanced
+                                                            security meansur. Once enabled, you'll be required to give
+                                                            two types of identification when you log into Google
+                                                            Authentication and SMS are Supported.
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 ms-sm-3">
+                                                        <a href="javascript:void(0);"
+                                                           class="btn btn-sm btn-primary">
+                                                            Enable Two-facor
+                                                            Authentication
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">
+                                                    <div class="flex-grow-1">
+                                                        <h6 class="fs-14 mb-1">Secondary Verification</h6>
+                                                        <p class="text-muted">
+                                                            The first factor is a password and the
+                                                            second commonly includes a text with a code sent to your
+                                                            smartphone, or biometrics using your fingerprint, face, or
+                                                            retina.
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 ms-sm-3">
+                                                        <a href="javascript:void(0);" class="btn btn-sm btn-primary">
+                                                            Set
+                                                            up secondary method
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">
+                                                    <div class="flex-grow-1">
+                                                        <h6 class="fs-14 mb-1">Backup Codes</h6>
+                                                        <p class="text-muted mb-sm-0">
+                                                            A backup code is automatically
+                                                            generated for you when you turn on two-factor authentication
+                                                            through your iOS or Android Twitter app. You can also
+                                                            generate a backup code on twitter.com.
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 ms-sm-3">
+                                                        <a href="javascript:void(0);"
+                                                           class="btn btn-sm btn-primary">Generate backup codes</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h5 class="card-title text-decoration-underline mb-3">
+                                                    Application
+                                                    Notifications:
+                                                </h5>
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="d-flex">
+                                                        <div class="flex-grow-1">
+                                                            <label for="directMessage"
+                                                                   class="form-check-label fs-14">Direct messages</label>
+                                                            <p class="text-muted">Messages from people you follow</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0">
+                                                            <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       role="switch" id="directMessage" checked />
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="d-flex mt-2">
+                                                        <div class="flex-grow-1">
+                                                            <label class="form-check-label fs-14"
+                                                                   for="desktopNotification">
+                                                                Show desktop notifications
+                                                            </label>
+                                                            <p class="text-muted">
+                                                                Choose the option you want as your
+                                                                default setting. Block a site: Next to "Not allowed to
+                                                                send notifications," click Add.
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex-shrink-0">
+                                                            <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       role="switch" id="desktopNotification" checked />
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="d-flex mt-2">
+                                                        <div class="flex-grow-1">
+                                                            <label class="form-check-label fs-14"
+                                                                   for="emailNotification">
+                                                                Show email notifications
+                                                            </label>
+                                                            <p class="text-muted">
+                                                                Under Settings, choose Notifications.
+                                                                Under Select an account, choose the account to enable
+                                                                notifications for.
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex-shrink-0">
+                                                            <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       role="switch" id="emailNotification" />
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="d-flex mt-2">
+                                                        <div class="flex-grow-1">
+                                                            <label class="form-check-label fs-14"
+                                                                   for="chatNotification">
+                                                                Show chat notifications
+                                                            </label>
+                                                            <p class="text-muted">
+                                                                To prevent duplicate mobile
+                                                                notifications from the Gmail and Chat apps, in settings,
+                                                                turn off Chat notifications.
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex-shrink-0">
+                                                            <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       role="switch" id="chatNotification" />
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="d-flex mt-2">
+                                                        <div class="flex-grow-1">
+                                                            <label class="form-check-label fs-14"
+                                                                   for="purchaesNotification">
+                                                                Show purchase notifications
+                                                            </label>
+                                                            <p class="text-muted">
+                                                                Get real-time purchase alerts to
+                                                                protect yourself from fraudulent charges.
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex-shrink-0">
+                                                            <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       role="switch" id="purchaesNotification" />
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <h5 class="card-title text-decoration-underline mb-3">
+                                                    Delete This
+                                                    Account:
+                                                </h5>
+                                                <p class="text-muted">
+                                                    Go to the Data & Privacy section of your profile
+                                                    Account. Scroll to "Your data & privacy options." Delete your
+                                                    Profile Account. Follow the instructions to delete your account :
+                                                </p>
+                                                <div>
+                                                    <input type="password" class="form-control" id="passwordInput"
+                                                           placeholder="Enter your password" value="make@321654987"
+                                                           style="max-width: 265px;">
+                                                </div>
+                                                <div class="hstack gap-2 mt-3">
+                                                    <a href="javascript:void(0);" class="btn btn-soft-danger">
+                                                        Close &
+                                                        Delete This Account
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="btn btn-light">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end tab-pane-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+
+                </div>
+            </div>
+            @Html.Partial("~/Views/Shared/_footer.cshtml")
+        </div>
+
+    </div>
+    <!-- END layout-wrapper -->
+    @Html.Partial("~/Views/Shared/_customizer.cshtml")
+
+    @Html.Partial("~/Views/Shared/_vendor_scripts.cshtml")
+
+    <!-- profile-setting init js -->
+    <script src="~/assets/js/pages/profile-setting.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/assets/js/app.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#profile-foreground-img-file-input').change(function () {
+                var file = this.files[0];
+                var formData = new FormData();
+                formData.append('cover', file);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/ProfileClient/UpdateCoverClient',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        alert(response.message)
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while uploading cover');
+                    }
+                });
+            });
+        });
+
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#profile-img-file-input').change(function () {
+                var file = this.files[0];
+                var formData = new FormData();
+                formData.append('photo', file);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/ProfileClient/UpdatePhotoClient',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        alert(response.message)
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while uploading cover');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#changePasswordForm').submit(function (e) {
+                e.preventDefault();
+                var oldpassword = $('#oldpasswordInput').val();
+                var newpassword = $('#newpasswordInput').val();
+                var confirmpassword = $('#confirmpasswordInput').val();
+
+                $('#validationpassword').text("");
+                $('#validationconfirmpassword').text("");
+                $('#validationnewpassword').text("");
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/ProfileAdmin/UpdatePasswordAdmin',
+                    data: {
+                        oldpassword: oldpassword,
+                        newpassword: newpassword,
+                        confirmpassword: confirmpassword
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = '/Authentication/LogoutBasic';
+                        }
+                        else {
+                            if (response.error == 1) {
+                                $('#validationnewpassword').text("New password == old password.");
+                            }
+                            else if (response.error == 2) {
+                                $('#validationconfirmpassword').text("Confirmation Incorrect.");
+                            }
+                            else if (response.error == 3) {
+                                $('#validationpassword').text("old password Incorrect.");
+                            }
+                            else if (response.error == 4) {
+                                $('#validationnewpassword').text("format password Incorrect.");
+                            }
+                            else if (response.error == 5) {
+                                $('#validationpassword').text("champs obligatoire.");
+                            }
+                            else if (response.error == 6) {
+                                $('#validationnewpassword').text("champs obligatoire.");
+                            }
+                            else if (response.error == 7) {
+                                $('#validationconfirmpassword').text("champs obligatoire.");
+                            }
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while updating password');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body>
+</html>
