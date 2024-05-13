@@ -3,7 +3,7 @@ namespace StudentApp.Repository.Abonnement
 {
     public interface IAbonnementRepository
     {
-        IList<Models.Abonnement> GetAllAbonnement();
+        IList<Models.Abonnement> GetAllAbonnementWithStudents();
         public Models.Abonnement GetAbonnementById(int id);
         public bool AddAbonnement(Models.Abonnement abonnement);
         public bool UpdateAbonnement(Models.Abonnement abonnementEdited);

@@ -1,10 +1,11 @@
 ﻿@using StudentApp.ViewModels
 @using StudentApp.ViewModels.Abonnement;
+@model AddAbonnementVM
 @{
     ViewBag.Title = "Formulaire d'abonnement";
     Layout = null;
 }
-<form method="post">
+<form id="addAbonnementForm">
     <div class="row">
         <div class="col-12">
             <div class="mb-3">
@@ -26,13 +27,15 @@
         <div class="col-12">
             <div class="mb-3">
                 <label for="StudentId" class="form-label">Nom d'étudiant</label>
-                <select for="StudentId" asp-items="@ViewBag.StudentId" class="form-select mb-3">
+                <select id="studentId" class="form-select mb-3">
                     <option value="">Choisi Nom d'étudiant</option>
+                    @foreach (var student in ViewBag.StudentId)
+                    {
+                        <option value="@student.Id">@student.Nom</option>
+                    }
                 </select>
             </div>
         </div><!--end col-->
-
-
         <div class="col-12">
             <div class="checkbox-grid">
                 @foreach (var line in ViewBag.Lines)
@@ -40,7 +43,6 @@
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" name="SelectedLineIds" type="checkbox" id="@("inlineCheckbox" + line.ID_Line)" value="@line.ID_Line">
                         <input type="hidden" name="SelectedLineNums" value="@line.NumLine" />
-
                         <label class="form-check-label" for="@("inlineCheckbox" + line.ID_Line)">@line.NumLine</label>
                     </div>
                 }
@@ -49,7 +51,7 @@
         <!--end col-->
         <div class="col-lg-12">
             <div class="text-end">
-                <button type="submit" class="btn btn-primary">Ajouter Abonnment</button>
+                <button type="button" class="btn btn-primary" onclick="addAbonnement()">Ajouter Abonnement</button>
             </div>
         </div><!--end col-->
     </div><!--end row-->
@@ -57,36 +59,6 @@
 
 <div id="abonnementContainer"></div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-<script>
-    function addAbonnement() {
-        var formData = {
-            TypeAbonnement: $('#typeabonnement').val(),
-            Solde: $('#solde').val(),
-            StudentId: $('#studentId').val(),
-            SelectedLineIds: $('input[name="SelectedLineIds"]:checked').map(function () {
-                return this.value;
-            }).get()
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: '/Dashboard/AddAbonnement',
-            data: formData,
-            success: function (response) {
-                if (response.success) {
-                    $('#abonnementContainer').load('/Dashboard/Abonnement', function () {
-                        alert('Abonnement ajouté avec succès!');
-                    });
-                } else {
-                    alert('Erreur lors de l\'ajout de l\'abonnement: ' + response.message);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error('Error:', error);
-                alert('Une erreur s\'est produite lors de la communication avec le serveur');
-            }
-        });
-    }
-</script>

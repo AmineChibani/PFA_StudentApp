@@ -48,9 +48,12 @@ namespace StudentApp.Repository.Abonnement
             return _u669885128UZsNtContext.Abonnements.Find(id);
         }
 
-        public IList<Models.Abonnement> GetAllAbonnement()
+        public IList<Models.Abonnement> GetAllAbonnementWithStudents()
         {
-            return _u669885128UZsNtContext.Abonnements.Include(a => a.AbonnementLignes).Include(s => s.Student).ToList();
+            return _u669885128UZsNtContext.Abonnements
+                .Include(a => a.AbonnementLignes)
+                .Include(a => a.Student)
+                .ToList();
         }
 
         public bool UpdateAbonnement(Models.Abonnement abonnementEdited)
