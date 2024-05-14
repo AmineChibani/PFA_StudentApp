@@ -34,7 +34,7 @@ namespace StudentApp.Controllers
                     HttpContext.Session.SetString("Nom", admin.Nom);
                     HttpContext.Session.SetString("Prenom", admin.Prenom);
                     HttpContext.Session.SetString("Role", "Admin");
-                    return RedirectToAction("Student", "Dashboard");
+                    return RedirectToAction("Analytics", "Dashboard1");
                 }
                 else
                 {

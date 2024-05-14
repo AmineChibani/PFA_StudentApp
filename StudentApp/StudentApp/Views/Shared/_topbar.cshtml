@@ -4,21 +4,21 @@
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box horizontal-logo">
-                    <a href="@Url.Action("Index", "Dashboard")" class="logo logo-dark">
+                    <a href="@Url.Action("Analytics", "Dashboard1")" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="~/assets/images/logo-sm.png" alt="" height="22">
+                            <img src="~/assets/images/logo lytrack1.png" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="~/assets/images/logo-dark.png" alt="" height="17">
+                            <img src="~/assets/images/logo 2.png" alt="" height="17">
                         </span>
                     </a>
 
-                    <a href="@Url.Action("Index", "Dashboard")" class="logo logo-light">
+                    <a href="@Url.Action("Analytics", "Dashboard1")" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="~/assets/images/logo-sm.png" alt="" height="22">
+                            <img src="~/assets/images/logo lytrack1.png" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="~/assets/images/logo-light.png" alt="" height="17">
+                            <img src="~/assets/images/logo 2.png" alt="" height="17">
                         </span>
                     </a>
                 </div>
@@ -35,7 +35,7 @@
                 <!-- App Search-->
                 <form class="app-search d-none d-md-block">
                     <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="Search..." autocomplete="off"
+                        <input type="text" class="form-control" placeholder="Recherche..." autocomplete="off"
                                id="search-options" value="">
                         <span class="mdi mdi-magnify search-widget-icon"></span>
                         <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none"
@@ -555,7 +555,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome @Context.Session.GetString("Nom")</h6>                     
+                        <h6 class="dropdown-header">Bienvenue @Context.Session.GetString("Nom")</h6>
                         <a class="dropdown-item" href="@Url.Action("ProfileSimpleAdmin", "ProfileAdmin")">
                             <i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span>
                         </a>                                      
@@ -564,13 +564,13 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="@Url.Action("ProfileSettingsAdmin", "ProfileAdmin")">
-                            <span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span>
+                            <span class="badge bg-soft-success text-success mt-1 float-end"></span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Paramètres</span>
                         </a>
                         <a class="dropdown-item" href="@Url.Action("LockScreenBasic", "Authentication")">
-                            <i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span>
+                            <i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Écran verrouillé</span>
                         </a>
                         <a class="dropdown-item" href="@Url.Action("LogoutBasic", "Authentication")">
-                            <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span>
+                            <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Se déconnecter</span>
                         </a>
                     </div>
                 </div>

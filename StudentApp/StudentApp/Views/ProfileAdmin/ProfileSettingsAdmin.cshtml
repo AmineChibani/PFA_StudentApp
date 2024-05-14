@@ -1,6 +1,6 @@
 ﻿@using StudentApp.ViewModels.Admin
 @{
-    ViewBag.Title = "Profile Settings";
+    ViewBag.Title = "Paramètres de profil";
     Layout = null;
 }
 
@@ -35,7 +35,7 @@
                                                class="profile-foreground-img-file-input">
                                         <label for="profile-foreground-img-file-input"
                                                class="profile-photo-edit btn btn-light">
-                                            <i class="ri-image-edit-line align-bottom me-1"></i> Change Cover
+                                            <i class="ri-image-edit-line align-bottom me-1"></i> Changer la couverture
                                         </label>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                                             </div>
                                         </div>
                                         <h5 class="fs-16 mb-1">@Model.Prenom @Model.Nom</h5>
-                                        <p class="text-muted mb-0">Client</p>
+                                        <p class="text-muted mb-0">Admin</p>
                                     </div>
                                 </div>
                             </div>
@@ -80,19 +80,19 @@
                                             <a class="nav-link active" data-bs-toggle="tab" href="#personalDetails"
                                                role="tab">
                                                 <i class="fas fa-home"></i>
-                                                Personal Details
+                                                Détails personnels
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab">
                                                 <i class="far fa-user"></i>
-                                                Change Password
+                                                Changer de mot de passe
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#privacy" role="tab">
                                                 <i class="far fa-envelope"></i>
-                                                Privacy Policy
+                                                Politique de confidentialité
                                             </a>
                                         </li>
                                     </ul>
@@ -105,11 +105,10 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label asp-for="Prenom" class="form-label">
-                                                                First
-                                                                Name
+                                                                Prenom
                                                             </label>
                                                             <input asp-for="Prenom" type="text" class="form-control" id="firstnameInput"
-                                                                   placeholder="Enter your firstname" value="@Model.Prenom">
+                                                                   placeholder="Prenom" value="@Model.Prenom">
                                                             <span asp-validation-for="Prenom" class="text-danger"></span>
                                                         </div>
                                                     </div>
@@ -117,11 +116,10 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label asp-for="Nom" class="form-label">
-                                                                Last
-                                                                Name
+                                                                Nom
                                                             </label>
                                                             <input asp-for="Nom" type="text" class="form-control" id="lastnameInput"
-                                                                   placeholder="Enter your lastname" value="@Model.Nom">
+                                                                   placeholder="Nom" value="@Model.Nom">
                                                             <span asp-validation-for="Nom" class="text-danger"></span>
                                                         </div>
                                                     </div>
@@ -132,7 +130,7 @@
                                                                 Adresse
                                                             </label>
                                                             <input asp-for="Email" type="text" class="form-control" id="firstnameInput"
-                                                                   placeholder="Enter your Adresse" value="@Model.Email">
+                                                                   placeholder="Adresse" value="@Model.Email">
                                                             <span asp-validation-for="Email" class="text-danger"></span>
                                                         </div>
                                                     </div>
@@ -141,11 +139,11 @@
                                                         <div class="hstack gap-2 justify-content-end">
                                                             <button type="submit"
                                                                     class="btn btn-primary">
-                                                                Updates
+                                                                Modifier
                                                             </button>
                                                             <a asp-action="ProfileSimpleAdmin" type="button"
                                                                     class="btn btn-soft-success">
-                                                                Cancel
+                                                                Annuler
                                                             </a>
                                                         </div>
                                                     </div>
@@ -161,13 +159,12 @@
                                                     <div class="col-lg-4">
                                                         <div>
                                                             <label for="oldpasswordInput" class="form-label">
-                                                                Old
-                                                                Password*
+                                                                Ancien mot de passe
                                                             </label>
                                                             <input type="password" class="form-control"
                                                                    id="oldpasswordInput"
                                                                    name="oldpassword"
-                                                                   placeholder="Enter current password">
+                                                                   placeholder="Entrez le mot de passe actuel">
                                                             <span id="validationpassword" class="text-danger"></span>
                                                         </div>
                                                     </div>
@@ -175,11 +172,10 @@
                                                     <div class="col-lg-4">
                                                         <div>
                                                             <label for="newpasswordInput" class="form-label">
-                                                                New
-                                                                Password*
+                                                                Nouveau mot de passe
                                                             </label>
                                                             <input type="password" class="form-control"
-                                                                   id="newpasswordInput" name="newpassword" placeholder="Enter new password">
+                                                                   id="newpasswordInput" name="newpassword" placeholder="Entrez le nouveau mot de passe">
                                                             <span id="validationnewpassword" class="text-danger"></span>
                                                         </div>
                                                     </div>
@@ -187,13 +183,12 @@
                                                     <div class="col-lg-4">
                                                         <div>
                                                             <label for="confirmpasswordInput" class="form-label">
-                                                                Confirm
-                                                                Password*
+                                                                Confirmer le mot de passe
                                                             </label>
                                                             <input type="password" class="form-control"
                                                                    id="confirmpasswordInput"
                                                                    name="confirmpassword"
-                                                                   placeholder="Confirm password">
+                                                                   placeholder="Confirmez le mot de passe">
                                                             <span id="validationconfirmpassword" class="text-danger"></span>
                                                         </div>
                                                     </div>
@@ -202,8 +197,7 @@
                                                         <div class="mb-3">
                                                             <a href="javascript:void(0);"
                                                                class="link-primary text-decoration-underline">
-                                                                Forgot
-                                                                Password ?
+                                                                Mot de passe oublié ?
                                                             </a>
                                                         </div>
                                                     </div>

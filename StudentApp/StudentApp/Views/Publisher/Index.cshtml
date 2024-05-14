@@ -1,6 +1,6 @@
 ﻿@using StudentApp.ViewModels
 @{
-    ViewBag.Title = "Publishers";
+    ViewBag.Title = "Éditeurs";
     Layout = null;
 }
 
@@ -28,7 +28,7 @@
             <div class="page-content">
 
 
-                <h3>Gestion Publishers</h3>
+                <h3>Gestion des Éditeurs</h3>
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -43,14 +43,14 @@
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm-auto">
                                             <div>
-                                                <button onclick="Addpublisher()" type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                                <button onclick="Addpublisher()" type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Ajouter</button>
                                                 @*<button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>*@
                                             </div>
                                         </div>
                                         <div class="col-sm">
                                             <div class="d-flex justify-content-sm-end">
                                                 <div class="search-box ms-2">
-                                                    <input type="text" class="form-control search" placeholder="Search...">
+                                                    <input type="text" class="form-control search" placeholder="Recherche...">
                                                     <i class="ri-search-line search-icon"></i>
                                                 </div>
                                             </div>
@@ -68,7 +68,7 @@
                                                     </th>
                                                     <th class="sort" data-sort="nom">Nom</th>
                                                     <th class="sort" data-sort="contact">Contact</th>
-                                                    <th class="sort" data-sort="telephone">telephone</th>
+                                                    <th class="sort" data-sort="telephone">Telephone</th>
                                                     <th class="sort" data-sort="action">Action</th>
                                                 </tr>
                                             </thead>
@@ -90,11 +90,11 @@
                                                                 <div class="edit">
                                                                     <button onclick="updatePublisher(@Publisher.Id)" class="btn btn-sm btn-success edit-item-btn"
                                                                             data-bs-toggle="modal" data-bs-target="#showModal">
-                                                                        Edit
+                                                                        Modifier
                                                                     </button>
                                                                 </div>
                                                                 <div class="remove">
-                                                                    <button onclick="DeletePublisher(@Publisher.Id)" class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                                    <button onclick="DeletePublisher(@Publisher.Id)" class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -119,11 +119,11 @@
                                     <div class="d-flex justify-content-end">
                                         <div class="pagination-wrap hstack gap-2">
                                             <a class="page-item pagination-prev disabled" href="#">
-                                                Previous
+                                                précédente
                                             </a>
                                             <ul class="pagination listjs-pagination mb-0"></ul>
                                             <a class="page-item pagination-next" href="#">
-                                                Next
+                                                suivante
                                             </a>
                                         </div>
                                     </div>
@@ -154,20 +154,20 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="Nom" class="form-label">Publisher Name</label>
-                                        <input for="Nom" type="text" id="Nom-field" class="form-control" placeholder="Publisher Name" required />
+                                        <label for="Nom" class="form-label">Nom de l'éditeur</label>
+                                        <input for="Nom" type="text" id="Nom-field" class="form-control" placeholder="Nom de l'éditeur" required />
                                         <span id="validationNom" class="text-danger"></span>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="contact" class="form-label">Publisher Contact</label>
-                                        <input for="contact" type="text" id="contact-field" class="form-control" placeholder="Publisher Contact" required />
+                                        <label for="contact" class="form-label">Contact de l'éditeur</label>
+                                        <input for="contact" type="text" id="contact-field" class="form-control" placeholder="Contact de l'éditeur" required />
                                         <span id="validationContact" class="text-danger"></span>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="Tel" class="form-label">Publisher Telephone</label>
-                                        <input for="Tel" type="text" id="Tel-field" class="form-control" placeholder="Publisher Telephone" required />
+                                        <label for="Tel" class="form-label">Téléphone de l'éditeur</label>
+                                        <input for="Tel" type="text" id="Tel-field" class="form-control" placeholder="Téléphone de l'éditeur" required />
                                         <span id="validationTel" class="text-danger"></span>
                                     </div>
 
@@ -321,7 +321,7 @@
         var etat = false;
 
         function updatePublisher(publisherId) {
-            ModalLabel.innerHTML = "Edit Publisher";
+            ModalLabel.innerHTML = "Modifier l'éditeur";
             var submit_button = document.getElementById("submit_button");
             submit_button.innerHTML = "Modifier";
             fetchPublishrData(publisherId);
@@ -329,7 +329,7 @@
         }
 
         function Addpublisher() {
-            ModalLabel.innerHTML = "Add Publisher";
+            ModalLabel.innerHTML = "Ajouter un éditeur";
             etat = false;
         }
 

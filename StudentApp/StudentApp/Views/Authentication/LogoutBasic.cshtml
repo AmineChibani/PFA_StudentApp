@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Log Out";
+    ViewBag.Title = "Se déconnecter";
     Layout = null;
 }
 
@@ -30,11 +30,10 @@
                     <div class="col-lg-12">
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
                             <div>
-                                <a href="@Url.Action("Index", "Dashboard")" class="d-inline-block auth-logo">
-                                    <img src="~/assets/images/logo-light.png" alt="" height="20">
+                                <a href="@Url.Action("Analytics", "Dashboard1")" class="d-inline-block auth-logo">
+                                    <img src="~/assets/images/logo lytrack1.png" alt="" height="70">
                                 </a>
                             </div>
-                            <p class="mt-3 fs-15 fw-semibold">Premium Admin & Dashboard Template</p>
                         </div>
                     </div>
                 </div>
@@ -51,10 +50,12 @@
                                 </lord-icon>
 
                                 <div class="mt-4 pt-2">
-                                    <h4>You are Logged Out</h4>
-                                    <p class="text-muted">Thank you for using <span class="fw-bold">velzon</span> admin template</p>
+                                    <h4>
+                                        Vous êtes déconnecté
+                                    </h4>
+                                    <p class="text-muted">Merci d'avoir utilisé le modèle <span class="fw-bold">Lytrack</span> d'administration.</p>
                                     <div class="mt-4">
-                                        <a href="@Url.Action("SignInBasic", "Authentication")" class="btn btn-success w-100">Sign In</a>
+                                        <a href="@Url.Action("SignInBasic", "Authentication")" class="btn btn-success w-100">Se Connecter</a>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +78,7 @@
                     <div class="col-lg-12">
                         <div class="text-center">
                             <p class="mb-0 text-muted">&copy;
-                            <script>document.write(new Date().getFullYear())</script> Velzon. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                            <script>document.write(new Date().getFullYear())</script> Lytrack. <i class="mdi mdi-heart text-danger"></i></p>
                         </div>
                     </div>
                 </div>
