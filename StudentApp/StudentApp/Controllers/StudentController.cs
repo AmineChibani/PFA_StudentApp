@@ -13,13 +13,13 @@ using System.Runtime.ConstrainedExecution;
 
 namespace StudentApp.Controllers
 {
-    public class DashboardController : Controller
+    public class StudentController : Controller
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IStudentMapper _studentMapper;
         private readonly ICartierRepository _cartierRepository;
 
-        public DashboardController(IStudentRepository studentRepository, IStudentMapper studentMapper, ICartierRepository cartierRepository)
+        public StudentController(IStudentRepository studentRepository, IStudentMapper studentMapper, ICartierRepository cartierRepository)
         {
             _studentMapper = studentMapper;
             _studentRepository = studentRepository;
@@ -150,26 +150,6 @@ namespace StudentApp.Controllers
                 // Log the exception
                 return Json(new { success = false, message = "An error occurred while deleting the student" });
             }
-        }
-
-
-
-       
-
-
-        public IActionResult Historique()
-        {
-            return PartialView("_HistoriquePartial");
-        }
-
-        public IActionResult Publisher()
-        {
-            return PartialView("_PublisherPartial");
-        }
-
-        public IActionResult Campaing()
-        {
-            return PartialView("_CampaignPartial");
         }
     }
 }

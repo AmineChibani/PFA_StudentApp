@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using StudentApp.Models;
 using StudentApp.ViewModels.Ads;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using static Twilio.Rest.Content.V1.ContentResource;
 
 namespace StudentApp.Controllers
 {
+
     public class AdsController : Controller
     {
         private readonly U669885128UZsNtContext _context;
@@ -19,7 +21,6 @@ namespace StudentApp.Controllers
 
         public IActionResult Index()
         {
-
             var adsWithAllData = _context.Campaigns
             .Include(c => c.Clicks)
             .Include(c => c.IdAgeRangeNavigation)
@@ -95,31 +96,42 @@ namespace StudentApp.Controllers
 
             if (ModelState.IsValid)
             {
-                Campaign cam = new Campaign();
-                cam.DateDebut = ad.DateDebut;
-                cam.DateFin = ad.DateFin;
-                cam.Budget = ad.Budget;
-                cam.ContentUrl = ad.ContentUrl;
-                cam.AdUrl = ad.AdUrl;
-                cam.IdType = ad.IdType;
-                cam.IdPublisher = ad.IdPublisher;
-                cam.IdAgeRange = ad.IdAgeRange;
-                cam.IdLocation = ad.IdLocation;
-
-                _context.Campaigns.Add(cam);
-                _context.SaveChanges();
-
-                foreach (var os in ad.oschoix)
+                
+                try
                 {
-                    CampainO campainOs = new CampainO();
-                    campainOs.IdCampaign = cam.Id; 
-                    campainOs.IdOs = os; 
-                    _context.CampainOs.Add(campainOs);
+                    
+                    _context.Database.BeginTransaction();
+                    Campaign cam = new Campaign();
+                    cam.DateDebut = ad.DateDebut;
+                    cam.DateFin = ad.DateFin;
+                    cam.Budget = ad.Budget;
+                    cam.ContentUrl = ad.ContentUrl;
+                    cam.AdUrl = ad.AdUrl;
+                    cam.IdType = ad.IdType;
+                    cam.IdPublisher = ad.IdPublisher;
+                    cam.IdAgeRange = ad.IdAgeRange;
+                    cam.IdLocation = ad.IdLocation;
+
+                    _context.Campaigns.Add(cam);
+                    _context.SaveChanges();
+
+                    foreach (var os in ad.oschoix)
+                    {
+                        CampainO campainOs = new CampainO();
+                        campainOs.IdCampaign = cam.Id;
+                        campainOs.IdOs = os;
+                        _context.CampainOs.Add(campainOs);
+                    }
+                    _context.SaveChanges();
+                    _context.Database.CommitTransaction();
+
+
+                    return RedirectToAction(nameof(Index));
                 }
-                _context.SaveChanges();
-
-
-                return RedirectToAction(nameof(Index));
+                catch
+                {
+                    _context.Database.RollbackTransaction();
+                }
             }
 
 

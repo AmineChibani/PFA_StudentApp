@@ -302,7 +302,7 @@
         function fetchStudentData(studentId) {
             $.ajax({
                 type: 'GET',
-                url: '/Dashboard/GetStudentById',
+                url: '/Student/GetStudentById',
                 data: { StudentId: studentId },
                 success: function (response) {
                     if (response.success) {
@@ -349,7 +349,7 @@
         // Function to add or edit a student
         function addOrEditStudent() {
             var studentId = $('#studentId').val();
-            var actionUrl = etat == true ? '/Dashboard/EditStudent' : '/Dashboard/AddStudent';
+            var actionUrl = etat == true ? '/Student/EditStudent' : '/Student/AddStudent';
             var formData = {
                 Nom: $('#Nom-field').val(),
                 Prenom: $('#Prenom-field').val(),
@@ -435,7 +435,7 @@
             $('#delete-record').click(function () {
                 $.ajax({
                     type: 'POST',
-                    url: '/Dashboard/DeleteStudent', 
+                    url: '/Student/DeleteStudent',
                     data: { studentId: studentId }, 
                     success: function (response) {
                         if (response.success) {

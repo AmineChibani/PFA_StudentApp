@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Dashboard\_AddStudentForm.cshtml" />
+    <Content Remove="Views\Student\_AddStudentForm.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,11 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Dashboard\_AddStudentForm.cshtml" />
+    <UpToDateCheckInput Remove="Views\Student\_AddStudentForm.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Dashboard\_AddStudentForm.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Student\_AddStudentForm.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
