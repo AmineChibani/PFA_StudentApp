@@ -44,14 +44,14 @@
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm-auto">
                                             <div>
-                                                <button onclick="AddAbonnement()" type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                                <button onclick="AddAbonnement()" type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Ajouter</button>
                                                 @*<button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>*@
                                             </div>
                                         </div>
                                         <div class="col-sm">
                                             <div class="d-flex justify-content-sm-end">
                                                 <div class="search-box ms-2">
-                                                    <input type="text" class="form-control search" placeholder="Search...">
+                                                    <input type="text" class="form-control search" placeholder="Recherche...">
                                                     <i class="ri-search-line search-icon"></i>
                                                 </div>
                                             </div>
@@ -90,25 +90,28 @@
                                                         <td class="solde">@Abonnement.Solde</td>
                                                         <td class="studentId">@Abonnement.Student?.Prenom</td>
                                                         <td class="abonnmentLignes">
-                                                            <ul>
-                                                                @foreach (AbonnementLigne a in Abonnement.AbonnementLignes)
+
+                                                            @foreach (AbonnementLigne a in Abonnement.AbonnementLignes)
+                                                            {
+                                                                @a.NumLine
+                                                                @if (a != Abonnement.AbonnementLignes.Last()) 
                                                                 {
-                                                                    <li>
-                                                                        @a.NumLine
-                                                                    </li>
+                                                                    <text> - </text> 
                                                                 }
-                                                            </ul>
+                                                            }
+
+                                                            
                                                         </td>
                                                         <td>
                                                             <div class="d-flex gap-2">
                                                                 <div class="edit">
                                                                     <button onclick="updatePublisher(@Abonnement.IdAbonnement)" class="btn btn-sm btn-success edit-item-btn"
                                                                             data-bs-toggle="modal" data-bs-target="#showModal">
-                                                                        Edit
+                                                                        Modifier
                                                                     </button>
                                                                 </div>
                                                                 <div class="remove">
-                                                                    <button onclick="DeletePublisher(@Abonnement.IdAbonnement)" class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                                    <button onclick="DeletePublisher(@Abonnement.IdAbonnement)" class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -133,11 +136,11 @@
                                     <div class="d-flex justify-content-end">
                                         <div class="pagination-wrap hstack gap-2">
                                             <a class="page-item pagination-prev disabled" href="#">
-                                                Previous
+                                                Précédent
                                             </a>
                                             <ul class="pagination listjs-pagination mb-0"></ul>
                                             <a class="page-item pagination-next" href="#">
-                                                Next
+                                                Suivant
                                             </a>
                                         </div>
                                     </div>
@@ -169,19 +172,19 @@
 
                                     <div class="mb-3">
                                         <label for="TypeAbonnement" class="form-label">Type d'abonnement</label>
-                                        <input type="text" id="typeabonnement-field" class="form-control" placeholder="Entrer votre type d'abonnement" required>
+                                        <input type="text" id="typeabonnement-field" class="form-control" placeholder="Entrer le type d'abonnement" required>
                                         <span id="validationTypeAbonnement" class="text-danger"></span>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="Solde" class="form-label">Solde</label>
-                                        <input type="text" class="form-control" placeholder="Entrer votre solde" id="solde-field">
+                                        <input type="text" class="form-control" placeholder="Entrer le solde" id="solde-field">
                                         <span id="validationSolde" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="StudentId" class="form-label">Student</label>
+                                        <label for="StudentId" class="form-label">Etudiant</label>
                                         <select id="StudentId-field" class="form-control" required>
-                                            <option value="">Select a Student</option>
+                                            <option value="">Choisir L'étudiant</option>
                                             @foreach (var student in ViewBag.Students)
                                             {
                                                 <option value="@student.Value">@student.Text</option>
@@ -190,8 +193,8 @@
                                         <span id="validationStudentId" class="text-danger"></span>
                                     </div>
 
-
                                     <div class="checkbox-grid" id="linesCheckboxList">
+                                        <label for="" class="form-label">Lignes</label><br />
                                         @foreach (var line in ViewBag.Lines)
                                         {
                                             <div class="form-check form-check-inline">
@@ -373,7 +376,7 @@
 
 
         function AddAbonnement() {
-            ModalLabel.innerHTML = "Add Abonnement";
+            ModalLabel.innerHTML = "Ajouter Abonnement";
             etat = false;
         }
 

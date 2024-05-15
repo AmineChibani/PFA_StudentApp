@@ -43,14 +43,14 @@
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm-auto">
                                             <div>
-                                                <a asp-controller="Ads" asp-action="AjouterAd" class="btn btn-success add-btn" ><i class="ri-add-line align-bottom me-1"></i> Add</a>
+                                                <a asp-controller="Ads" asp-action="AjouterAd" class="btn btn-success add-btn" ><i class="ri-add-line align-bottom me-1"></i> Ajouter</a>
                                                 @*<button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>*@
                                             </div>
                                         </div>
                                         <div class="col-sm">
                                             <div class="d-flex justify-content-sm-end">
                                                 <div class="search-box ms-2">
-                                                    <input type="text" class="form-control search" placeholder="Search...">
+                                                    <input type="text" class="form-control search" placeholder="Recherche...">
                                                     <i class="ri-search-line search-icon"></i>
                                                 </div>
                                             </div>
@@ -65,13 +65,13 @@
                                                     <th class="sort" data-sort="Date_debut">Date_debut</th>
                                                     <th class="sort" data-sort="Date_Fin">Date Fin</th>
                                                     <th class="sort" data-sort="Budget">Budget</th>
-                                                    <th class="sort" data-sort="content_url">Content URL</th>
-                                                    <th class="sort" data-sort=" ad_url">Campaign URL</th>
+                                                    <th class="sort" data-sort="content_url">URL du contenu</th>
+                                                    <th class="sort" data-sort=" ad_url">URL de l'annonce</th>
                                                     <th class="sort" data-sort="type">Type</th>
-                                                    <th class="sort" data-sort="publisher">Publisher</th>
-                                                    <th class="sort" data-sort="age_range">Age Range</th>
-                                                    <th class="sort" data-sort="Location">Location</th>
-                                                    <th class="sort" data-sort="Location">Operating System</th>
+                                                    <th class="sort" data-sort="publisher">Éditeur</th>
+                                                    <th class="sort" data-sort="age_range">Tranche d'âge</th>
+                                                    <th class="sort" data-sort="Location">Localisation</th>
+                                                    <th class="sort" data-sort="Location">Système</th>
                                                     <th class="sort" data-sort="action">Action</th>
                                                 </tr>
                                             </thead>
@@ -81,8 +81,8 @@
                                                 {
                                                     <tr>
                                                         <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">@Ad.Id</a></td>
-                                                        <td class="nom">@Ad.DateDebut</td>
-                                                        <td class="prenom">@Ad.DateFin</td>
+                                                        <td class="nom">@Ad.DateDebut.ToString("dd/MM/yyyy") - @Ad.DateDebut.ToString("HH:mm")</td>
+                                                        <td class="prenom">@Ad.DateFin.ToString("dd/MM/yyyy") - @Ad.DateFin.ToString("HH:mm")</td>
                                                         <td class="cen">@Ad.Budget</td>
                                                         <td class="cin">@Ad.ContentUrl</td>
                                                         <td class="tel">@Ad.AdUrl</td>
@@ -103,11 +103,11 @@
                                                                 <div class="edit">
                                                                     <button onclick="updateAd(@Ad.Id)" class="btn btn-sm btn-success edit-item-btn"
                                                                             data-bs-toggle="modal" data-bs-target="#showModal">
-                                                                        Edit
+                                                                        Modifier
                                                                     </button>
                                                                 </div>
                                                                 <div class="remove">
-                                                                    <button class="btn btn-sm btn-danger remove-item-btn" onclick="removeAd(@Ad.Id)" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                                                    <button class="btn btn-sm btn-danger remove-item-btn" onclick="removeAd(@Ad.Id)" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -132,11 +132,11 @@
                                     <div class="d-flex justify-content-end">
                                         <div class="pagination-wrap hstack gap-2">
                                             <a class="page-item pagination-prev disabled" href="#">
-                                                Previous
+                                                précédent
                                             </a>
                                             <ul class="pagination listjs-pagination mb-0"></ul>
                                             <a class="page-item pagination-next" href="#">
-                                                Next
+                                                Suivant
                                             </a>
                                         </div>
                                     </div>

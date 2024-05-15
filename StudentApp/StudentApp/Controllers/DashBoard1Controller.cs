@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentApp.Filters;
 using StudentApp.Models;
 using StudentApp.ViewModels.Statistics;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Velzon.Controllers
 {
+    [Isconnected]
     public class DashBoard1Controller : Controller
     {
         private readonly U669885128UZsNtContext _context;

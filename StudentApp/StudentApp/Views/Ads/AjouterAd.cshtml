@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Ajouter Campagnes publicitaires";
     ViewBag.pTitle = "Ajouter Campagnes publicitaires";
-    ViewBag.pageTitle = "asp-forms";
+    ViewBag.pageTitle = "Lytrack";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model AjouterAdVM
@@ -21,7 +21,7 @@
                         <div class="row gy-4">
                             <div class="col-xxl-3 col-md-6">
                                 <div>
-                                    <label asp-for="DateDebut" class="form-label">Date Fin</label>
+                                    <label asp-for="DateDebut" class="form-label">Date Debut</label>
                                     <input asp-for="DateDebut" class="form-control" placeholder="Date Debut"><br />
                                     <span asp-validation-for="DateDebut" class="text-danger"></span><br />
                                 </div>
@@ -48,7 +48,7 @@
                         <div>
                             <div class="row g-3">
                                 <div class="col-lg-6">
-                                    <label asp-for="ContentUrl" class="form-label">Content URL</label>
+                                    <label asp-for="ContentUrl" class="form-label">URL du contenu</label>
                                     <div class="input-group">
                                         <span class="input-group-text"
                                               id="basic-addon3">https://example.com/...</span>
@@ -57,7 +57,7 @@
                                     <span asp-validation-for="ContentUrl" class="text-danger"></span>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label asp-for="AdUrl" class="form-label">Ad URL</label>
+                                    <label asp-for="AdUrl" class="form-label">URL de l'annonce</label>
                                     <div class="input-group">
                                         <span class="input-group-text"
                                               id="basic-addon3">https://example.com/...</span>
@@ -75,21 +75,21 @@
                             </select>
                             <span asp-validation-for="IdType" class="text-danger"></span>
 
-                            <label asp-for="IdPublisher" class="form-label">Publisher</label>
+                            <label asp-for="IdPublisher" class="form-label">Éditeur</label>
                             <select asp-for="IdPublisher" asp-items="@Model.publishers" class="js-example-disabled" required>
-                                <option value="AL">Choisir Publisher</option>
+                                <option value="AL">Choisir L'Éditeur'</option>
                             </select>
                             <span asp-validation-for="IdPublisher" class="text-danger"></span>
 
-                            <label asp-for="IdAgeRange" class="form-label">Age Range</label>
+                            <label asp-for="IdAgeRange" class="form-label">Tranche d'âge</label>
                             <select asp-for="IdAgeRange" asp-items="@Model.ageRanges" class="js-example-disabled" required>
-                                <option value="AL">Choisir Range</option>
+                                <option value="AL">Choisir Tranche d'âge</option>
                             </select>
                             <span asp-validation-for="IdAgeRange" class="text-danger"></span>
 
-                            <label asp-for="IdLocation" class="form-label">Location</label>
+                            <label asp-for="IdLocation" class="form-label">Locliation</label>
                             <select asp-for="IdLocation" asp-items="@Model.locations" class="js-example-disabled" required>
-                                <option value="AL">Choisir Location</option>
+                                <option value="AL">Choisir Localition</option>
                             </select>
                             <span asp-validation-for="IdLocation" class="text-danger"></span>
                         </div><br />
@@ -97,7 +97,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div>
-                                    <label for="DateDebut" class="form-label">OS</label>
+                                    <label for="DateDebut" class="form-label">système d'exploitation</label>
                                     <div>
                                         @foreach (var plateform in Model.Os)
                                         {

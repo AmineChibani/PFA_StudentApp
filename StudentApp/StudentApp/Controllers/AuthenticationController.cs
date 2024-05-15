@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentApp.Models;
 using StudentApp.ViewModels;
+using StudentApp.ViewModels.Admin;
 
 namespace StudentApp.Controllers
 {
@@ -32,6 +33,7 @@ namespace StudentApp.Controllers
                 {
                     HttpContext.Session.SetString("Id", admin.Id.ToString());
                     HttpContext.Session.SetString("Nom", admin.Nom);
+                    HttpContext.Session.SetString("Email", admin.Email);
                     HttpContext.Session.SetString("Prenom", admin.Prenom);
                     HttpContext.Session.SetString("Role", "Admin");
                     return RedirectToAction("Analytics", "Dashboard1");
@@ -54,7 +56,38 @@ namespace StudentApp.Controllers
         }
 
 
+        [ActionName("LockScreenBasic")]
+        public IActionResult LockScreenBasic()
+        {
+            HttpContext.Session.Remove("Id");
+            return View();
+        }
 
+
+        [ActionName("LockScreenBasic")]
+        [HttpPost]
+        public IActionResult LockScreenBasic(LockScreenVM adminvm)
+        {
+            if (ModelState.IsValid)
+            {
+
+                Admin admin = Context.Admins.FirstOrDefault(u => u.Email == HttpContext.Session.GetString("Email").ToLower() && u.Password == adminvm.Password);
+                if (admin is not null)
+                {
+                    HttpContext.Session.SetString("Id", admin.Id.ToString());
+                    HttpContext.Session.SetString("Nom", admin.Nom);
+                    HttpContext.Session.SetString("Prenom", admin.Prenom);
+                    HttpContext.Session.SetString("Email", admin.Email);
+                    HttpContext.Session.SetString("Role", "Admin");
+                    return RedirectToAction("Analytics", "Dashboard1");
+                }
+                else
+                {
+                    ViewBag.utilisateurExist = "";
+                }
+            }
+            return View();
+        }
 
 
 
@@ -82,11 +115,7 @@ namespace StudentApp.Controllers
             return View();
         }
 
-        [ActionName("LockScreenBasic")]
-        public IActionResult LockScreenBasic()
-        {
-            return View();
-        }
+        
 
         [ActionName("LockScreenCover")]
         public IActionResult LockScreenCover()
