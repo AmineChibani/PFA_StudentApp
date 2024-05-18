@@ -278,7 +278,7 @@
             };
 
             if (etat) {
-                formData.PublisherId = $('#id-field').val();
+                formData.PublisherId = pubId;
             }
 
 
@@ -326,6 +326,7 @@
             submit_button.innerHTML = "Modifier";
             fetchPublishrData(publisherId);
             etat = true;
+            pubId = publisherId;
         }
 
         function Addpublisher() {

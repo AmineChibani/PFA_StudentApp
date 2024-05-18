@@ -13,10 +13,6 @@ namespace StudentApp.Controllers
         private readonly IAbonnementRepository _abonnementRepository;
         private readonly IStudentRepository _studentRepository;
 
-        /*public AbonnementController()
-        {
-            
-        }*/
 
         public AbonnementController(IAbonnementRepository abonnementRepository, IStudentRepository studentRepository)
         {
@@ -26,15 +22,12 @@ namespace StudentApp.Controllers
 
 
 
-        public IActionResult Abonnement()
+        public IActionResult Index()
         {
-            // Fetch abonnements with associated students
             IList<Abonnement> abonnementList = _abonnementRepository.GetAllAbonnementWithStudents();
 
-            // Fetch students
             IList<Student> studentList = _studentRepository.GetAllStudents();
 
-            // Convert student list to SelectListItem list
             IList<SelectListItem> studentItems = studentList
                 .Select(s => new SelectListItem
                 {
@@ -43,17 +36,11 @@ namespace StudentApp.Controllers
                 })
                 .ToList();
 
-            // Set ViewBag for students
             ViewBag.Students = studentItems;
 
-            // Fetch lines from API
             List<LineVM> lines = FetchLinesFromAPI();
-
-            // Set ViewBag for lines
             ViewBag.Lines = lines;
-
-            // Pass abonnementList to the partial view
-            return PartialView("_AbonnementPartial", abonnementList);
+            return View( abonnementList);
         }
 
 
@@ -61,10 +48,8 @@ namespace StudentApp.Controllers
 
         public IActionResult AddAbonnement()
         {
-            //get student data base
             var students = _studentRepository.GetAllStudents();
             ViewData["StudentId"] = new SelectList(students, "IdStudent", "Nom");
-            //get ligne api
             string apiUrl = "https://lyfytech.com/APIScanner/listline.php";
 
             using (HttpClient client = new HttpClient())
@@ -96,7 +81,7 @@ namespace StudentApp.Controllers
         [HttpPost]
         public IActionResult AddAbonnement(Abonnement abonnement)
         {
-                            abonnement.DateDeCreation = DateTime.Now;
+            abonnement.DateDeCreation = DateTime.Now;
 
             try
             {
@@ -135,12 +120,10 @@ namespace StudentApp.Controllers
                     }
                     else
                     {
-                        // Handle API call failure
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Handle exception
                 }
             }
 

@@ -7,6 +7,9 @@ File: Analytics sales init js
 */
 
 // get colors array from the string
+
+
+
 function getChartColorsArray(chartId) {
     if (document.getElementById(chartId) !== null) {
         var colors = document.getElementById(chartId).getAttribute("data-colors");
@@ -64,8 +67,8 @@ function loadCharts() {
                 coords: [26.8206, 30.8025]
             },
             {
-                name: "Russia",
-                coords: [61, 105]
+                name: "Rusgggggsia",
+                coords: [500000, 141400000]
             },
             {
                 name: "China",
@@ -141,55 +144,10 @@ window.onresize = function () {
 
 loadCharts();
 
-// Countries charts
-var barchartCountriesColors = getChartColorsArray("countries_charts");
-if (barchartCountriesColors) {
-    var options = {
-        series: [{
-            data: [1010, 1640, 490, 1255, 1050, 689, 800, 420, 1085, 589],
-            name: 'Sessions',
-        }],
-        chart: {
-            type: 'bar',
-            height: 436,
-            toolbar: {
-                show: false,
-            }
-        },
-        plotOptions: {
-            bar: {
-                borderRadius: 4,
-                horizontal: true,
-                distributed: true,
-                dataLabels: {
-                    position: 'top',
-                },
-            }
-        },
-        colors: barchartCountriesColors,
-        dataLabels: {
-            enabled: true,
-            offsetX: 32,
-            style: {
-                fontSize: '12px',
-                fontWeight: 400,
-                colors: ['#adb5bd']
-            }
-        },
 
-        legend: {
-            show: false,
-        },
-        grid: {
-            show: false,
-        },
-        xaxis: {
-            categories: ['India', 'United States', 'China', 'Indonesia', 'Russia', 'Bangladesh', 'Canada', 'Brazil', 'Vietnam', 'UK'],
-        },
-    };
-    var chart = new ApexCharts(document.querySelector("#countries_charts"), options);
-    chart.render();
-}
+
+
+
 
 // Heatmap Charts Generatedata
 function generateData(count, yrange) {
@@ -400,6 +358,7 @@ if (chartAudienceColumnChartsColors) {
     chart.render();
 }
 
+/*
 // User by devices
 var dountchartUserDeviceColors = getChartColorsArray("user_device_pie_charts");
 if (dountchartUserDeviceColors) {
@@ -453,4 +412,147 @@ if (dountchartUserDeviceColors) {
     };
     var chart = new ApexCharts(document.querySelector("#user_device_pie_charts"), options);
     chart.render();
+}
+
+*/
+
+var Androiduser = document.getElementById("Androiduser");
+var iosuser = document.getElementById("iosuser");
+var windowsuser = document.getElementById("windowsuser");
+
+
+
+
+$(document).ready(function () {
+    $.ajax({
+        url: '/DashBoard1/GetAnalyticsData',
+        type: 'post',
+        success: function (response) {
+            Androiduser.innerHTML = response.values[0];
+            iosuser.innerHTML = response.values[1];
+            windowsuser.innerHTML = response.values[2];
+            document.getElementById("AndroidPercentage").innerHTML = response.percentages[0]+"%";
+            document.getElementById("iOSPercentage").innerHTML = response.percentages[1]+"%";
+            document.getElementById("WindowsPercentage").innerHTML = response.percentages[2]+"%";
+            var options = {
+                series: response.values,
+                labels: response.keys,
+                chart: {
+                    type: "donut",
+                    height: 219,
+                },
+                plotOptions: {
+                    pie: {
+                        size: 100,
+                        donut: {
+                            size: "76%",
+                        },
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                legend: {
+                    show: false,
+                    position: 'bottom',
+                    horizontalAlign: 'center',
+                    offsetX: 0,
+                    offsetY: 0,
+                    markers: {
+                        width: 20,
+                        height: 6,
+                        radius: 2,
+                    },
+                    itemMargin: {
+                        horizontal: 12,
+                        vertical: 0
+                    },
+                },
+                stroke: {
+                    width: 0
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function (value) {
+                            return value + " Users";
+                        }
+                    },
+                    tickAmount: 4,
+                    min: 0
+                },
+                colors: getChartColorsArray("user_device_pie_charts"),
+            };
+            var chart = new ApexCharts(document.querySelector("#user_device_pie_charts"), options);
+            chart.render();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log('Error:', textStatus, errorThrown);
+        }
+    });
+});
+
+function loadCharts() {
+    // Countries bar chart
+    var barchartCountriesColors = getChartColorsArray("countries_charts");
+    if (barchartCountriesColors) {
+        $.ajax({
+            url: '/Dashboard1/GetSubscriptionsData',
+            type: 'POST',
+            success: function (response) {
+                // Combine keys, values, and percentages for x-axis labels
+                var formattedCategories = response.keys.map(function (key, index) {
+                    return 'Line ' + key + ' - ' + ' (' + response.percentages[index] + '%)';
+                });
+
+                var options = {
+                    series: [{
+                        data: response.values,
+                        name: 'Nbr Abonnement',
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 436,
+                        toolbar: {
+                            show: false,
+                        }
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 4,
+                            horizontal: true,
+                            distributed: true,
+                            dataLabels: {
+                                position: 'top',
+                            },
+                        }
+                    },
+                    colors: barchartCountriesColors,
+                    dataLabels: {
+                        enabled: true,
+                        offsetX: 32,
+                        style: {
+                            fontSize: '12px',
+                            fontWeight: 400,
+                            colors: ['#adb5bd']
+                        }
+                    },
+                    legend: {
+                        show: false,
+                    },
+                    grid: {
+                        show: false,
+                    },
+                    xaxis: {
+                        categories: formattedCategories,
+                    },
+                };
+
+                var chart = new ApexCharts(document.querySelector("#countries_charts"), options);
+                chart.render();
+            },
+            error: function (error) {
+                console.error('Error fetching subscription data:', error);
+            }
+        });
+    }
 }

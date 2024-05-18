@@ -27,22 +27,18 @@ namespace StudentApp.Controllers
         }
         public IActionResult Index()
         {
-            return View();
-        }
-        public IActionResult Student()
-        {
             IList<Student> studentList = _studentRepository.GetAllStudents();
 
             IList<SelectListItem> cartierList = _cartierRepository.GetCartierList()
                 .Select(c => new SelectListItem
                 {
-                    Value = c.Id.ToString(), 
-                    Text = c.Libelle 
+                    Value = c.Id.ToString(),
+                    Text = c.Libelle
                 }).ToList();
 
             ViewBag.Cartier = cartierList;
 
-            return PartialView("_StudentPartial", studentList);
+            return View(studentList);
         }
 
 

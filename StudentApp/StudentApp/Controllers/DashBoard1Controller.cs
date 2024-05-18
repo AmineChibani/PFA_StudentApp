@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Velzon.Controllers
 {
-    [Isconnected]
+    //[Isconnected]
     public class DashBoard1Controller : Controller
     {
         private readonly U669885128UZsNtContext _context;
@@ -52,19 +52,11 @@ namespace Velzon.Controllers
             .ToDictionary(g => g.Key, g => g.Count());
 
 
-
-            // Calculer le nombre total de clics
-            int TotalClicks = _context.Clicks.Count();
-
             // Calculer le nombre de clics par campagne
             Dictionary<int, int> ClicksByCampaign = _context.Clicks
                 .GroupBy(c => c.IdCampain)
                 .ToDictionary(g => g.Key, g => g.Count());
 
-            // Calculer le nombre de clics par système d'exploitation
-            Dictionary<string, int> ClicksByOS  = _context.Clicks
-                .GroupBy(c => c.Os)
-                .ToDictionary(g => g.Key, g => g.Count());
 
 
             var viewModel = new AnalyticsVM
@@ -76,12 +68,65 @@ namespace Velzon.Controllers
                 lignesWithTotalSubscriptions = lignesWithTotalSubscriptions,
                 StudentsByQuartier = studentsByQuartier,
                 QuartierPercentages = quartierPercentages,
-                ClicksByCampaign = ClicksByCampaign,
-                ClicksByOS = ClicksByOS
+                ClicksByCampaign = ClicksByCampaign
             };
 
             return View(viewModel);
         }
+
+
+        [ActionName("GetAnalyticsData")]
+        [HttpPost]
+        public IActionResult GetAnalyticsData()
+        {
+            int totalClicks = _context.Clicks.Count();
+
+            Dictionary<string, int> ClicksByOS = _context.Clicks
+                .GroupBy(c => c.Os)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            Dictionary<string, double> ClicksPercentageByOS = ClicksByOS
+                .ToDictionary(kv => kv.Key, kv => (double)kv.Value / totalClicks * 100);
+
+            List<string> osKeys = ClicksByOS.Keys.ToList();
+
+            List<int> osValues = ClicksByOS.Values.ToList();
+
+            // Formater les pourcentages avec deux chiffres après la virgule
+            List<string> osPercentages = ClicksPercentageByOS.Values.Select(p => p.ToString("0.##")).ToList();
+
+            return Json(new { keys = osKeys, values = osValues, percentages = osPercentages });
+
+        }
+
+
+        [ActionName("GetSubscriptionsData")]
+        [HttpPost]
+        public IActionResult GetSubscriptionsData()
+        {
+            int totalSubscriptions = _context.AbonnementLignes.Count();
+
+            Dictionary<int, int> SubscriptionsByLine = _context.AbonnementLignes
+                .GroupBy(c => c.NumLine)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            Dictionary<int, double> SubscriptionsPercentageByLine = SubscriptionsByLine
+                .ToDictionary(kv => kv.Key, kv => (double)kv.Value / totalSubscriptions * 100);
+
+            List<int> lineKeys = SubscriptionsByLine.Keys.ToList();
+            List<int> lineValues = SubscriptionsByLine.Values.ToList();
+            List<string> linePercentages = SubscriptionsPercentageByLine.Values.Select(p => p.ToString("0.##")).ToList();
+
+            return Json(new { keys = lineKeys, values = lineValues, percentages = linePercentages });
+        }
+
+
+
+
+
+
+
+
 
         [ActionName("CRM")]
         public IActionResult CRM()

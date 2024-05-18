@@ -11,7 +11,7 @@
     @Html.Partial("~/Views/Shared/_title_meta.cshtml")
 
     <!-- swiper css -->
-    <link rel="stylesheet" href="~/assets/libs/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="~/assets/libs/swiper-bundle.min.css">
 
     @Html.Partial("~/Views/Shared/_head_css.cshtml")
 </head>
@@ -43,7 +43,10 @@
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm-auto">
                                             <div>
-                                                <button onclick="Addstudent()" type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Ajouter</button>
+                                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal">
+                                                    <i class="ri-add-line align-bottom me-1"></i> Ajouter
+                                                </button>
+
                                                 @*<button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>*@
                                             </div>
                                         </div>
@@ -154,7 +157,7 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header bg-light p-3">
-                                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                <h5 class="modal-title" id="exampleModalLabel">...</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                         id="close-modal"></button>
                             </div>
@@ -281,22 +284,14 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // Function to open the modal for adding/editing a student
-        function openStudentModal(studentId) {
-            // Determine whether it's an add or edit operation based on studentId
-            if (studentId) {
-                $('#modalTitle').text('Edit Student');
-                $('#saveButton').text('Save Changes').unbind('click').click(function () {
-                    addOrEditStudent(studentId); // Call the function with studentId
-                });
-                fetchStudentData(studentId); // Fetch existing data for editing
-            } else {
-                $('#modalTitle').text('Add Student');
-                $('#saveButton').text('Add Student').unbind('click').click(addOrEditStudent); // Restore the default click event
-                clearFormFields(); // Clear form fields for adding a new student
-            }
-            $('#studentModal').modal('show'); // Show the modal
-        }
+        let stdent = 0;
+        const createBtn = document.getElementById('create-btn');
+
+        createBtn.addEventListener('click', function () {
+            document.getElementById("exampleModalLabel").innerHTML = "Ajouter Etudiant";
+            document.getElementById("submit_button").innerHTML = "Ajouter";
+        });
+
 
         // Function to fetch existing student data for editing
         function fetchStudentData(studentId) {
@@ -362,7 +357,7 @@
             };
 
             if (etat) {
-                formData.studentId = $('#id-field').val();
+                formData.studentId = stdent;
             }
 
 
@@ -421,37 +416,44 @@
         var etat = false;
 
         function updateStudent(idstudent) {
-            var submit_button = document.getElementById("submit_button");
-            submit_button.innerHTML = "Modifier";
+            document.getElementById("exampleModalLabel").innerHTML = "Modifier Etudiant";
             fetchStudentData(idstudent);
+            document.getElementById("submit_button").innerHTML = "Modifier";
             etat = true;
+            stdent = idstudent;
         }
 
 
         // deleteStudent function
+        
+
         function removeStudent(studentId) {
-            $('#deleteRecordModal').modal('show'); 
-
-            $('#delete-record').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Student/DeleteStudent',
-                    data: { studentId: studentId }, 
-                    success: function (response) {
-                        if (response.success) {
-                            window.location.reload(); 
-                        } else {
-                            alert('Failed to delete the student: ' + response.message); 
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('Error:', error);
-                        alert('An error occurred while communicating with the server'); 
-                });
-            });
+            stdent = studentId;
         }
+        
 
 
+
+        const delBtn = document.getElementById('delete-record');
+
+        delBtn.addEventListener('click', function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Student/DeleteStudent',
+                data: { studentId: stdent },
+                success: function (response) {
+                    if (response.success) {
+                        window.location.reload();
+                    } else {
+                        alert('Failed to delete the student: ' + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while communicating with the server');
+                }
+            });
+        });
 
 
 

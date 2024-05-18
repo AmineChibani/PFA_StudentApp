@@ -71,6 +71,13 @@
     <None Include="Views\Forms\Wizard.cshtml" />
     <None Include="Views\ProfileAdmin\ProfileSimpleAdmin.cshtml" />
     <None Include="Views\Shared\_AddStudentForm.cshtml" />
+    <None Include="wwwroot\js\BarreDeRecherche.js" />
+    <None Include="wwwroot\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\js\click-scroll.js" />
+    <None Include="wwwroot\js\custom.js" />
+    <None Include="wwwroot\js\jquery.min.js" />
+    <None Include="wwwroot\js\jquery.sticky.js" />
+    <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 
 </Project>

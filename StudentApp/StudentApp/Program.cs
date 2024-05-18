@@ -60,6 +60,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Ads}/{action=AjouterAd}/{id?}");
+    pattern: "{controller=Dashboard1}/{action=Analytics}/{id?}");
 
 app.Run();
