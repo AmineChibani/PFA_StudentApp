@@ -86,7 +86,7 @@
                                                         </th>
                                                         <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">@Abonnement.IdAbonnement</a></td>
                                                         <td class="typeabonnement">@Abonnement.TypeAbonnement</td>
-                                                        <td class="datedecreation">@Abonnement.DateDeCreation</td>
+                                                        <td class="datedecreation">@Abonnement.DateDeCreation.ToString("dd/MM/yyyy") - @Abonnement.DateDeCreation.ToString("HH:mm")</td>
                                                         <td class="solde">@Abonnement.Solde</td>
                                                         <td class="studentId">@Abonnement.Student?.Prenom</td>
                                                         <td class="abonnmentLignes">
