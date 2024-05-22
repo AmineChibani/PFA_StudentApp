@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using StudentApp.Filters;
 using StudentApp.Models;
 using StudentApp.Utils.Publisher;
 using StudentApp.Utils.Student;
@@ -8,6 +9,7 @@ using Publisher = StudentApp.Models.Publisher;
 
 namespace StudentApp.Controllers
 {
+    [Isconnected]
     public class PublisherController : Controller
     {
         private readonly U669885128UZsNtContext _context;

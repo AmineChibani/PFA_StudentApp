@@ -1,29 +1,3 @@
-/*
-Template Name: Velzon - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
-File: list Js File
-*//*
-
-var checkAll = document.getElementById("checkAll");
-if (checkAll) {
-    checkAll.onclick = function () {
-        var checkboxes = document.querySelectorAll('.form-check-all input[type="checkbox"]');
-        if (checkAll.checked == true) {
-            Array.from(checkboxes).forEach(function (checkbox) {
-                checkbox.checked = true;
-                checkbox.closest("tr").classList.add("table-active");
-            });
-        } else {
-            Array.from(checkboxes).forEach(function (checkbox) {
-                checkbox.checked = false;
-                checkbox.closest("tr").classList.remove("table-active");
-            });
-        }
-    };
-}
-
 var perPage = 8;
 var editlist = false;
 
@@ -455,4 +429,4 @@ var paginationList = new List('pagination-list', {
     valueNames: ['pagi-list'],
     page: 3,
     pagination: true
-});*/
+});

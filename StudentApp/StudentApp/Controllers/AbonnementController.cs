@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using StudentApp.Filters;
 using StudentApp.Models;
 using StudentApp.Repository.Abonnement;
 using StudentApp.Repository.Student;
@@ -8,6 +9,7 @@ using StudentApp.ViewModels.Abonnement;
 
 namespace StudentApp.Controllers
 {
+    [Isconnected]
     public class AbonnementController : Controller
     {
         private readonly IAbonnementRepository _abonnementRepository;

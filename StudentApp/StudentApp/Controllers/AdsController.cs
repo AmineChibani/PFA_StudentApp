@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using StudentApp.Filters;
 using StudentApp.Models;
 using StudentApp.ViewModels.Ads;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using static Twilio.Rest.Content.V1.ContentResource;
 
 namespace StudentApp.Controllers
 {
-
+    [Isconnected]
     public class AdsController : Controller
     {
         private readonly U669885128UZsNtContext _context;

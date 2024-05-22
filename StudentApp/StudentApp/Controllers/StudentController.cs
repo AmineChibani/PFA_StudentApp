@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using StudentApp.Filters;
 using StudentApp.Models;
 using StudentApp.Repository.Abonnement;
 using StudentApp.Repository.Cartier;
@@ -13,14 +14,17 @@ using System.Runtime.ConstrainedExecution;
 
 namespace StudentApp.Controllers
 {
+    [Isconnected]
     public class StudentController : Controller
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IStudentMapper _studentMapper;
         private readonly ICartierRepository _cartierRepository;
+        private readonly U669885128UZsNtContext _context;
 
-        public StudentController(IStudentRepository studentRepository, IStudentMapper studentMapper, ICartierRepository cartierRepository)
+        public StudentController(U669885128UZsNtContext context,IStudentRepository studentRepository, IStudentMapper studentMapper, ICartierRepository cartierRepository)
         {
+            _context = context;
             _studentMapper = studentMapper;
             _studentRepository = studentRepository;
             _cartierRepository = cartierRepository;
@@ -123,6 +127,59 @@ namespace StudentApp.Controllers
             }
 
             return Json(new { success = false, Errors = errors });
+        }
+        [HttpGet]
+        public IActionResult SearchStudents(string query)
+        {
+
+            if (string.IsNullOrEmpty(query))
+            {
+
+                var students = _context.Students
+                .Select(s => new
+                {
+                    s.IdStudent,
+                    s.Nom,
+                    s.Prenom,
+                    s.Cen,
+                    s.Cin,
+                    s.Tel,
+                    s.Adresse,
+                    s.Email,
+                    Etat = s.Etat ? "Active" : "No Active",
+                    Cartier = s.CartierNavigation.Libelle
+                }).ToList();
+                return Json(new { success = true, students });
+            }
+            else
+            {
+                var students = _context.Students
+                .Where(s => s.Nom.Contains(query) ||
+                            s.Prenom.Contains(query) ||
+                            s.Cen.Contains(query) ||
+                            s.Cin.Contains(query) ||
+                            s.Tel.Contains(query) ||
+                            s.Adresse.Contains(query) ||
+                            s.Email.Contains(query) ||
+                            s.CartierNavigation.Libelle.Contains(query))
+                .Select(s => new
+                {
+                    s.IdStudent,
+                    s.Nom,
+                    s.Prenom,
+                    s.Cen,
+                    s.Cin,
+                    s.Tel,
+                    s.Adresse,
+                    s.Email,
+                    Etat = s.Etat ? "Active" : "No Active",
+                    Cartier = s.CartierNavigation.Libelle
+                }).ToList();
+                return Json(new { success = true, students });
+            }
+             
+
+           
         }
 
         [HttpPost]

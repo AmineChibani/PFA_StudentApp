@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using StudentApp.Filters;
 using StudentApp.Models;
 using StudentApp.ViewModels.Admin;
 
 namespace StudentApp.Controllers
 {
+    [Isconnected]
     public class ProfileAdminController : Controller
     {
         private readonly U669885128UZsNtContext _context;

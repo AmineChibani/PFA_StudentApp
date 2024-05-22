@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Velzon.Controllers
 {
-    //[Isconnected]
+    [Isconnected]
     public class DashBoard1Controller : Controller
     {
         private readonly U669885128UZsNtContext _context;
