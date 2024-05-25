@@ -30,13 +30,13 @@
     }
 }
 
-.auth-one-bg{
+.auth-one-bg {
     background-image: url("../images/auth-one-bg.jpg");
     background-position: center;
     background-size: cover;
 
-    .bg-overlay{
-        background: linear-gradient(to right, darken($primary, 6%), $primary);
+    .bg-overlay {
+        background: linear-gradient(to right, darken(#FF0000, 6%), #FF0000);
         opacity: 0.9;
     }
 }

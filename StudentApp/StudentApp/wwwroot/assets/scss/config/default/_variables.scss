@@ -62,7 +62,7 @@ $grays: (
 
 // scss-docs-start color-variables
 $blue:       #3577f1;
-$indigo:     #405189;
+$indigo:     #FF0000;
 $purple:     #6559cc;
 $pink:       #f672a7;
 $red:        #f06548;
@@ -110,7 +110,7 @@ $blue-700: shade-color($blue, 40%);
 $blue-800: shade-color($blue, 60%);
 $blue-900: shade-color($blue, 80%);
 
-$indigo-100: tint-color($indigo, 80%);
+/*$indigo-100: tint-color($indigo, 80%);
 $indigo-200: tint-color($indigo, 60%);
 $indigo-300: tint-color($indigo, 40%);
 $indigo-400: tint-color($indigo, 20%);
@@ -118,7 +118,7 @@ $indigo-500: $indigo;
 $indigo-600: shade-color($indigo, 20%);
 $indigo-700: shade-color($indigo, 40%);
 $indigo-800: shade-color($indigo, 60%);
-$indigo-900: shade-color($indigo, 80%);
+$indigo-900: shade-color($indigo, 80%);*/
 
 $purple-100: tint-color($purple, 80%);
 $purple-200: tint-color($purple, 60%);

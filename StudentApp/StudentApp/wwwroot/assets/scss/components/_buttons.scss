@@ -46,9 +46,9 @@ a {
 @each $state in map-keys($theme-colors) {
 
     .btn-#{$state} {
-        --#{$prefix}btn-bg: var(--#{$prefix}#{$state});
-        --#{$prefix}btn-border-color: var(--#{$prefix}#{$state});
-        --#{$prefix}btn-hover-bg: var(--#{$prefix}#{$state}-text-emphasis);
+        --#{$prefix}btn-bg: #ff6666;
+        --#{$prefix}btn-border-color: #ff6666;
+        --#{$prefix}btn-hover-bg: #fd3333;
         --#{$prefix}btn-hover-border-color: var(--#{$prefix}#{$state}-text-emphasis);
         --#{$prefix}btn-focus-shadow-rgb: var(--#{$prefix}#{$state}-rgb);
         --#{$prefix}btn-active-bg: var(--#{$prefix}#{$state}-text-emphasis);
